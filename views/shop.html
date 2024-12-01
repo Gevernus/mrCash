@@ -1,0 +1,653 @@
+<head>
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    /* ========================Menu================ */
+    .footer-menu {
+      position: fixed;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      height: 17vw;
+      background-color: #2c2c2c;
+      border-top-left-radius: 3.5vh;
+      border-top-right-radius: 3.5vh;
+    }
+
+    .menu-wrapper {
+      margin: 0 auto;
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      width: 85%;
+      height: 100%;
+    }
+
+    .menu-item {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1.5vw;
+      margin-bottom: 3vw;
+      width: 14.5vw;
+      font-family: "Manrope", sans-serif;
+      font-weight: 400;
+      font-size: 2.7vw;
+      color: #bdbdbd;
+    }
+
+    .menu-icon-act {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 100%;
+      width: 14vw;
+      height: 14vw;
+      background-color: #2c2c2c;
+      box-shadow: 0 0.4vh 0.4vh 0 rgba(0, 0, 0, 0.25);
+      transition: transform 0.5s ease-out;
+      transform: translateY(-10%);
+    }
+
+    .menu-item-act-shadov {
+      position: absolute;
+      bottom: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 100%;
+      opacity: 0;
+      overflow: hidden;
+      transition: opacity 0.2s 0.1s ease-in;
+    }
+
+    .menu-item-act-shadov::before {
+      transform: translateY(-10%);
+      content: "";
+      position: absolute;
+      bottom: 0;
+      left: -1vw;
+      border-radius: 100%;
+      width: 16vw;
+      height: 16vw;
+      background-color: #1c1c1c;
+      opacity: 0;
+      transition: transform 0.5s ease-out, opacity 0.2s ease-out;
+    }
+
+    .menu-icon-act-img {
+      width: 5vw;
+    }
+
+    .menu-item-act-shadov-show::before {
+      transform: translateY(-37%);
+      opacity: 1;
+      transition: transform 0.5s ease-out, opacity 0.8s ease-out;
+    }
+
+    .menu-item-act-shadov-show {
+      overflow: visible;
+      opacity: 1;
+      transition: opacity 0.6s ease-out;
+    }
+
+    .menu-item-act-show {
+      transform: translateY(-50%);
+      transition: transform 0.5s ease-out;
+    }
+
+    .menu-icon-show {
+      display: none;
+    }
+
+    .menu-icon {
+      width: 5.6vw;
+    }
+
+    /* ================================ */
+
+    img {
+      width: 100%;
+    }
+
+    #shop-content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      border: none;
+      font-family: "Roboto", sans-serif;
+      background-image: url(images/setting-bg.svg);
+      background-position: 50% 0%;
+      background-size: contain;
+      background-repeat: no-repeat;
+      width: 428px;
+      height: 796px;
+      width: 100%;
+      height: 100%;
+    }
+
+    .shop-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin: 2vh 0px;
+      width: 95.3%;
+    }
+
+    .shop-top-item {
+      border: 0.1vh solid rgba(255, 255, 255, 0.32);
+      border-radius: 5vh;
+      padding: 0.5vh 3vw;
+      width: 30.2vw;
+      /* height: 44px; */
+      box-shadow: 0 0 2.7vh 0 #fdd65b;
+      background: #1c1c1c;
+    }
+
+    .shop-top-wrapper {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.4vh;
+    }
+
+    .shop-top-title {
+      font-weight: 500;
+      font-size: 1.9vw;
+      line-height: 1.1;
+      text-align: center;
+      color: rgba(255, 255, 255, 0.32);
+    }
+
+    .shop-top-inner {
+      display: flex;
+      align-items: center;
+      justify-content: start;
+      gap: 0.7vw;
+      font-weight: 700;
+      font-size: 3.3vw;
+      line-height: 1.57;
+      letter-spacing: 0.01em;
+      color: #fff;
+    }
+
+    .shop-top-coint-img {
+      width: 4.6vw;
+    }
+
+    .shop-wrapper {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      border-top: 0.4vh solid #ffd700;
+      border-radius: 5vh 5vh 0 0;
+      padding: 5vh 3.7vw 0px 3.7vw;
+      width: 100%;
+      height: 100%;
+      box-shadow: 0 0 2.4vh 0 #ffd700;
+      background: #1c1c1c;
+    }
+
+    .coins {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 2.3vw;
+      margin-bottom: 4.4vh;
+      border-radius: 2.4vh;
+      padding: 1.3vh 3.9vw;
+      background: #2c2c2c;
+      font-weight: 700;
+      font-size: 7vw;
+      line-height: 1.5;
+      letter-spacing: 0.01em;
+      color: #fffefd;
+    }
+
+    .coin-img {
+      width: 9.3vw;
+    }
+
+    .shop-tabs {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 2.3vw;
+      margin-bottom: 2vh;
+      width: 100%;
+      border-radius: 1vh;
+      padding: 1vw;
+      box-shadow: 0 0 1.5vh 0 rgba(0, 0, 0, 0.25);
+      background: #2c2c2c;
+    }
+
+    .shop-tabs-item {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 1vh;
+      padding: 1.2vh 2.5vw;
+      font-weight: 500;
+      font-size: 3.3vw;
+      line-height: 1.57;
+      letter-spacing: 0.01em;
+      color: #fffefd;
+    }
+
+    .shop-tabs-item-activ {
+      background: #1c1c1c;
+    }
+
+    #shop-container {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3.7vw;
+    }
+
+    .shop-card {
+      display: flex;
+      flex-direction: column;
+      border-radius: 2vh;
+      width: 43.7vw;
+      /* height: 128px; */
+      background: #2c2c2c;
+    }
+
+    .shop-card-top {
+      display: flex;
+      align-items: center;
+      justify-content: start;
+      padding: 1.5vh 1.9vw 1vh 1.9vw;
+      width: 100%;
+      gap: 1.9vw;
+      border-bottom: 0.1vh solid #3e3f41;
+    }
+
+    .shop-card-top-img {
+      width: 11.2vw;
+    }
+
+    .shop-card-inner {
+      display: flex;
+      flex-direction: column;
+      align-items: start;
+      justify-content: center;
+    }
+
+    .shop-card-title {
+      margin-bottom: 1vh;
+      font-weight: 400;
+      font-size: 2.8vw;
+      line-height: 1.5;
+      letter-spacing: 0.03em;
+      color: #fff;
+    }
+
+    .shop-card-subtitle {
+      font-weight: 400;
+      font-size: 2.4vw;
+      line-height: 1.6;
+      letter-spacing: 0.04em;
+      color: rgba(255, 255, 255, 0.64);
+    }
+
+    .shop-card-info {
+      display: flex;
+      align-items: center;
+      gap: 1vw;
+      font-weight: 700;
+      font-size: 3.2vw;
+      line-height: 1.57;
+      letter-spacing: 0.01em;
+      color: #fff;
+    }
+
+    .shop-card-coin-img {
+      width: 3.8vw;
+    }
+
+    .shop-card-bottom {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1vh 1.9vw 1.5vh 1.9vw;
+    }
+
+    .shop-card-lvl {
+      margin-right: auto;
+      border-right: 0.1vh solid #3e3f41;
+      padding: 0px 1.9vw 0px 0px;
+      font-weight: 700;
+      font-size: 3.3vw;
+      line-height: 1.57;
+      letter-spacing: 0.01em;
+      color: #fff;
+    }
+
+    .shop-card-cost {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1vw;
+      font-weight: 700;
+      font-size: 3.3vw;
+      line-height: 1.57;
+      letter-spacing: 0.01em;
+      color: #fff;
+    }
+
+    .shop-card-cost-img {
+      width: 5.6vw;
+    }
+  </style>
+</head>
+<div id="shop-content">
+  <div class="shop-top">
+    <div class="shop-top-item">
+      <div class="shop-top-wrapper">
+        <span class="shop-top-title">Монет за Тап</span>
+        <div class="shop-top-inner">
+          <div class="shop-top-coint-img">
+            <img src="images/coin-20.svg" alt="coint" />
+          </div>
+          <span>+ </span>
+          <span id="profit-tap-value">16</span>
+          <span> за тап</span>
+        </div>
+      </div>
+    </div>
+    <div class="shop-top-item">
+      <div class="shop-top-wrapper">
+        <span class="shop-top-title">Прибыль в час</span>
+        <div class="shop-top-inner">
+          <div class="shop-top-coint-img">
+            <img src="images/coin-20.svg" alt="coint" />
+          </div>
+          <span>+ </span>
+          <span id="profit-hour-value">1.5</span>
+          <span> M</span>
+          <div class="shop-top-coint-img">
+            <img src="images/profit-info.svg" alt="coint" />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="shop-wrapper">
+    <div class="coins">
+      <div class="coin-img">
+        <img src="images/coin-40.svg" alt="coin" />
+      </div>
+      <div id="coins-value">1,232, 507, 981</div>
+    </div>
+    <div class="shop-tabs">
+      <div class="shop-tabs-item shop-tabs-item-activ">Бизнес</div>
+      <div class="shop-tabs-item">Крипта</div>
+      <div class="shop-tabs-item">Ставки</div>
+      <div class="shop-tabs-item">Казино</div>
+      <div class="shop-tabs-item">Бусты</div>
+    </div>
+    <div id="shop-container">
+      <div class="shop-card">
+        <div class="shop-card-top">
+          <div class="shop-card-top-img">
+            <img src="images/shop-item-icon.svg" alt="" />
+          </div>
+          <div class="shop-card-inner">
+            <span class="shop-card-title">Автомойка</span>
+            <span class="shop-card-subtitle">Прибыль в час</span>
+            <div class="shop-card-info">
+              <div class="shop-card-coin-img">
+                <img src="images/coin-16.svg" alt="coin" />
+              </div>
+              <span class="shop-card-value">64</span>
+              <span>K</span>
+            </div>
+          </div>
+        </div>
+        <div class="shop-card-bottom">
+          <div class="shop-card-lvl">lvl 17</div>
+          <div class="shop-card-cost">
+            <div class="shop-card-cost-img">
+              <img src="images/coin-20.svg" alt="coin" />
+            </div>
+            <span>4M</span>
+          </div>
+        </div>
+      </div>
+      <div class="shop-card">
+        <div class="shop-card-top">
+          <div class="shop-card-top-img">
+            <img src="images/shop-item-icon.svg" alt="" />
+          </div>
+          <div class="shop-card-inner">
+            <span class="shop-card-title">Автомойка</span>
+            <span class="shop-card-subtitle">Прибыль в час</span>
+            <div class="shop-card-info">
+              <div class="shop-card-coin-img">
+                <img src="images/coin-16.svg" alt="coin" />
+              </div>
+              <span class="shop-card-value">64</span>
+              <span>K</span>
+            </div>
+          </div>
+        </div>
+        <div class="shop-card-bottom">
+          <div class="shop-card-lvl">lvl 17</div>
+          <div class="shop-card-cost">
+            <div class="shop-card-cost-img">
+              <img src="images/coin-20.svg" alt="coin" />
+            </div>
+            <span>4M</span>
+          </div>
+        </div>
+      </div>
+      <div class="shop-card">
+        <div class="shop-card-top">
+          <div class="shop-card-top-img">
+            <img src="images/shop-item-icon.svg" alt="" />
+          </div>
+          <div class="shop-card-inner">
+            <span class="shop-card-title">Автомойка</span>
+            <span class="shop-card-subtitle">Прибыль в час</span>
+            <div class="shop-card-info">
+              <div class="shop-card-coin-img">
+                <img src="images/coin-16.svg" alt="coin" />
+              </div>
+              <span class="shop-card-value">64</span>
+              <span>K</span>
+            </div>
+          </div>
+        </div>
+        <div class="shop-card-bottom">
+          <div class="shop-card-lvl">lvl 17</div>
+          <div class="shop-card-cost">
+            <div class="shop-card-cost-img">
+              <img src="images/coin-20.svg" alt="coin" />
+            </div>
+            <span>4M</span>
+          </div>
+        </div>
+      </div>
+      <div class="shop-card">
+        <div class="shop-card-top">
+          <div class="shop-card-top-img">
+            <img src="images/shop-item-icon.svg" alt="" />
+          </div>
+          <div class="shop-card-inner">
+            <span class="shop-card-title">Автомойка</span>
+            <span class="shop-card-subtitle">Прибыль в час</span>
+            <div class="shop-card-info">
+              <div class="shop-card-coin-img">
+                <img src="images/coin-16.svg" alt="coin" />
+              </div>
+              <span class="shop-card-value">64</span>
+              <span>K</span>
+            </div>
+          </div>
+        </div>
+        <div class="shop-card-bottom">
+          <div class="shop-card-lvl">lvl 17</div>
+          <div class="shop-card-cost">
+            <div class="shop-card-cost-img">
+              <img src="images/coin-20.svg" alt="coin" />
+            </div>
+            <span>4M</span>
+          </div>
+        </div>
+      </div>
+      <div class="shop-card">
+        <div class="shop-card-top">
+          <div class="shop-card-top-img">
+            <img src="images/shop-item-icon.svg" alt="" />
+          </div>
+          <div class="shop-card-inner">
+            <span class="shop-card-title">Автомойка</span>
+            <span class="shop-card-subtitle">Прибыль в час</span>
+            <div class="shop-card-info">
+              <div class="shop-card-coin-img">
+                <img src="images/coin-16.svg" alt="coin" />
+              </div>
+              <span class="shop-card-value">64</span>
+              <span>K</span>
+            </div>
+          </div>
+        </div>
+        <div class="shop-card-bottom">
+          <div class="shop-card-lvl">lvl 17</div>
+          <div class="shop-card-cost">
+            <div class="shop-card-cost-img">
+              <img src="images/coin-20.svg" alt="coin" />
+            </div>
+            <span>4M</span>
+          </div>
+        </div>
+      </div>
+      <div class="shop-card">
+        <div class="shop-card-top">
+          <div class="shop-card-top-img">
+            <img src="images/shop-item-icon.svg" alt="" />
+          </div>
+          <div class="shop-card-inner">
+            <span class="shop-card-title">Автомойка</span>
+            <span class="shop-card-subtitle">Прибыль в час</span>
+            <div class="shop-card-info">
+              <div class="shop-card-coin-img">
+                <img src="images/coin-16.svg" alt="coin" />
+              </div>
+              <span class="shop-card-value">64</span>
+              <span>K</span>
+            </div>
+          </div>
+        </div>
+        <div class="shop-card-bottom">
+          <div class="shop-card-lvl">lvl 17</div>
+          <div class="shop-card-cost">
+            <div class="shop-card-cost-img">
+              <img src="images/coin-20.svg" alt="coin" />
+            </div>
+            <span>4M</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- ========================men========================= -->
+  <div class="footer-menu">
+    <div class="menu-wrapper">
+      <div class="menu-item item-tap navigate" data-page="home">
+        <div class="menu-item-act-shadov menu-item-act-shadov-show">
+          <div class="menu-icon-act menu-item-act-show">
+            <div class="menu-icon-act-img">
+              <img src="images/menu-tap-activ-icon.svg" alt="Tap Game" />
+            </div>
+          </div>
+        </div>
+        <div class="menu-icon menu-icon-show">
+          <img src="images/menu-tap-icon.svg" alt="" />
+        </div>
+        <span class="menu-text">Tap Game</span>
+      </div>
+      <div class="menu-item item-prof navigate" data-page="profile">
+        <div class="menu-item-act-shadov">
+          <div class="menu-icon-act">
+            <div class="menu-icon-act-img">
+              <img src="images/menu-prof-activ-icon.svg" alt="Tap Game" />
+            </div>
+          </div>
+        </div>
+        <div class="menu-icon">
+          <img src="images/menu-prof-icon.svg" alt="" />
+        </div>
+        <span class="menu-text">Profile</span>
+      </div>
+      <div class="menu-item item-slot navigate" data-page="slots">
+        <div class="menu-item-act-shadov">
+          <div class="menu-icon-act">
+            <div class="menu-icon-act-img">
+              <img src="images/menu-slot-activ-icon.svg" alt="Tap Game" />
+            </div>
+          </div>
+        </div>
+        <div class="menu-icon">
+          <img src="images/menu-slot-icon.svg" alt="" />
+        </div>
+        <span class="menu-text">Slots</span>
+      </div>
+      <div class="menu-item item-sett navigate" data-page="settings">
+        <div class="menu-item-act-shadov">
+          <div class="menu-icon-act">
+            <div class="menu-icon-act-img">
+              <img src="images/menu-setting-activ-icon.svg" alt="Tap Game" />
+            </div>
+          </div>
+        </div>
+        <div class="menu-icon">
+          <img src="images/menu-setting-icon.svg" alt="" />
+        </div>
+        <span class="menu-text">Settings</span>
+      </div>
+      <div class="menu-item item-wall navigate" data-page="wallet">
+        <div class="menu-item-act-shadov">
+          <div class="menu-icon-act">
+            <div class="menu-icon-act-img">
+              <img src="images/menu-wallet-activ-icon.svg" alt="Tap Game" />
+            </div>
+          </div>
+        </div>
+        <div class="menu-icon">
+          <img src="images/menu-wallet-icon.svg" alt="" />
+        </div>
+        <span class="menu-text">Wallet</span>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+  const menu = document.querySelector(".footer-menu");
+  const itemsAct = document.querySelectorAll(".menu-icon-act");
+  const itemsShado = document.querySelectorAll(".menu-item-act-shadov");
+  const icons = document.querySelectorAll(".menu-icon");
+
+  menu.addEventListener("click", (e) => {
+    const menuItem = e.target.closest(".menu-item");
+    if (!menuItem) return;
+    const actItemSadow = menuItem.querySelector(".menu-item-act-shadov");
+    const actItem = actItemSadow.querySelector(".menu-icon-act");
+    const actIcon = menuItem.querySelector(".menu-icon");
+    itemsAct.forEach((el) => {
+      el.classList.remove("menu-item-act-show");
+    });
+    itemsShado.forEach((el) => {
+      el.classList.remove("menu-item-act-shadov-show");
+    });
+
+    icons.forEach((el) => {
+      el.classList.remove("menu-icon-show");
+    });
+
+    actItem.classList.add("menu-item-act-show");
+    actItemSadow.classList.add("menu-item-act-shadov-show");
+    actIcon.classList.add("menu-icon-show");
+  });
+</script>

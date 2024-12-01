@@ -1,0 +1,434 @@
+<head>
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    img {
+      width: 100%;
+    }
+
+    #home-content {
+      position: relative;
+      padding-top: 2vh;
+      font-family: "Roboto", sans-serif;
+      background-color: #0a0a0a;
+      width: 428px;
+      height: 796px;
+      width: 100%;
+      height: 100%;
+    }
+
+    .home-bg {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      border-top: 0.3vh solid #ffd700;
+      border-radius: 4vh 4vh 0 0;
+      box-shadow: 0 0 2vh 0 #ffd700;
+      width: 100%;
+      height: 100%;
+      background: url(images/home-bg.svg);
+      background-position: 50% 50%;
+      background-repeat: no-repeat;
+      background-size: cover;
+    }
+
+    .coins {
+      margin: 5.3vh 0 4.7vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 2vw;
+      width: 65%;
+      height: 13.5vw;
+      border: 0.6vh solid #e0c974;
+      border-radius: 1.5vh;
+    }
+
+    .coin-img {
+      width: 8.9vw;
+    }
+
+    .coin-img img {
+      width: 100%;
+    }
+
+    #coins-value {
+      font-weight: 700;
+      font-size: 5.5vw;
+      line-height: 1.5;
+      letter-spacing: 0.01em;
+      color: #fffefd;
+    }
+
+    .home-profit {
+      margin-bottom: 2vh;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 92.5%;
+    }
+
+    .profit-tap,
+    .profit-hour {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 1vh 3vw;
+      border: 0.1vh solid rgba(255, 255, 255, 0.32);
+      border-radius: 5vh;
+      box-shadow: 0 0 2.7vh 0 #fdd65b;
+      background: #282b30;
+    }
+
+    .profit-desc {
+      font-weight: 500;
+      font-size: 2vw;
+      line-height: 1.1;
+      text-align: center;
+      color: rgba(255, 255, 255, 0.32);
+    }
+
+    .profit-inner {
+      display: flex;
+      align-items: center;
+      gap: 0.5vh;
+    }
+
+    .profit-tap-img {
+      width: 2.4vh;
+    }
+
+    .profit-tap-text,
+    .profit-hour-text {
+      font-weight: 700;
+      font-size: 3.2vw;
+      line-height: 1.57;
+      letter-spacing: 0.01em;
+      color: #fff;
+    }
+
+    .profit-hour-img {
+      width: 2.2vh;
+    }
+
+    .home-tap {
+      width: 41.4vh;
+      height: 40.2vh;
+      margin-bottom: 7.3vh;
+    }
+
+    .home-info {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 88%;
+      font-weight: 500;
+      font-size: 4vw;
+      line-height: 1.56;
+      letter-spacing: 0.01em;
+      color: #fff;
+    }
+
+    .info-energy,
+    #shop-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.8vh;
+      border-radius: 1.7vh;
+      height: 4vh;
+      background: rgba(0, 0, 0, 0.5);
+    }
+
+    .info-energy {
+      width: 18.9vh;
+    }
+
+    .info-energy-img {
+      width: 2.6vh;
+    }
+
+    #shop-btn {
+      width: 15.4vh;
+    }
+
+    .shop-btn-img {
+      width: 2.6vh;
+    }
+
+    /* ========================Menu================ */
+    .footer-menu {
+      position: fixed;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      height: 17vw;
+      background-color: #2c2c2c;
+      border-top-left-radius: 3.5vh;
+      border-top-right-radius: 3.5vh;
+    }
+
+    .menu-wrapper {
+      margin: 0 auto;
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      width: 85%;
+      height: 100%;
+    }
+
+    .menu-item {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1.5vw;
+      margin-bottom: 3vw;
+      width: 14.5vw;
+      font-family: "Manrope", sans-serif;
+      font-weight: 400;
+      font-size: 2.7vw;
+      color: #bdbdbd;
+    }
+
+    .menu-icon-act {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 100%;
+      width: 14vw;
+      height: 14vw;
+      background-color: #2c2c2c;
+      box-shadow: 0 0.4vh 0.4vh 0 rgba(0, 0, 0, 0.25);
+      transition: transform 0.5s ease-out;
+      transform: translateY(-10%);
+    }
+
+    .menu-item-act-shadov {
+      position: absolute;
+      bottom: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 100%;
+      opacity: 0;
+      overflow: hidden;
+      transition: opacity 0.2s 0.1s ease-in;
+    }
+
+    .menu-item-act-shadov::before {
+      transform: translateY(-10%);
+      content: "";
+      position: absolute;
+      bottom: 0;
+      left: -1vw;
+      border-radius: 100%;
+      width: 16vw;
+      height: 16vw;
+      background-color: #1c1c1c;
+      opacity: 0;
+      transition: transform 0.5s ease-out, opacity 0.2s ease-out;
+    }
+
+    .menu-icon-act-img {
+      width: 5vw;
+    }
+
+    .menu-item-act-shadov-show::before {
+      transform: translateY(-37%);
+      opacity: 1;
+      transition: transform 0.5s ease-out, opacity 0.8s ease-out;
+    }
+
+    .menu-item-act-shadov-show {
+      overflow: visible;
+      opacity: 1;
+      transition: opacity 0.6s ease-out;
+    }
+
+    .menu-item-act-show {
+      transform: translateY(-50%);
+      transition: transform 0.5s ease-out;
+    }
+
+    .menu-icon-show {
+      display: none;
+    }
+
+    .menu-icon {
+      width: 5.6vw;
+    }
+  </style>
+</head>
+<div id="home-content">
+  <div class="home-bg">
+    <div class="coins">
+      <div class="coin-img">
+        <img src="images/coin-40.svg" alt="coin" />
+      </div>
+      <div id="coins-value">1,232, 507, 981</div>
+    </div>
+    <div class="home-profit">
+      <div class="profit-tap">
+        <span class="profit-desc">Монет за Тап</span>
+        <div class="profit-inner">
+          <div class="profit-tap-img">
+            <img src="images/coin-20.svg" alt="coin" />
+          </div>
+          <div class="profit-tap-text">
+            <span>+</span>
+            <span id="profit-tap-value">16</span>
+            <span>за тап</span>
+          </div>
+        </div>
+      </div>
+      <div class="profit-hour">
+        <span class="profit-desc">Прибыль в час</span>
+        <div class="profit-inner">
+          <div class="profit-tap-img">
+            <img src="images/coin-20.svg" alt="coin" />
+          </div>
+          <div class="profit-hour-text">
+            <span>+</span>
+            <span id="profit-hour-value">1.5</span>
+            <span>M</span>
+          </div>
+          <div class="profit-hour-img">
+            <img src="images/profit-info.svg" alt="info" />
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="home-tap">
+      <img id="home-tap" src="images/coin-tab.svg" alt="coin" />
+    </div>
+    <div class="home-info">
+      <div class="info-energy">
+        <div class="info-energy-img">
+          <img src="images/energy-icon.svg" alt="Energy icon" />
+        </div>
+        <span id="energy-total">6500</span>
+        <span>/</span>
+        <span id="energy-value">6500</span>
+      </div>
+      <div id="shop-btn" class="navigate" data-page="shop">
+        <div class="shop-btn-img">
+          <img src="images/sohp-icon.svg" alt="Shop icon" />
+        </div>
+        <span>Магазин</span>
+      </div>
+    </div>
+    <div class="footer-menu">
+      <div class="menu-wrapper">
+        <div class="menu-item item-tap navigate" data-page="home">
+          <div class="menu-item-act-shadov menu-item-act-shadov-show">
+            <div class="menu-icon-act menu-item-act-show">
+              <div class="menu-icon-act-img">
+                <img
+                  src="images/menu-tap-activ-icon.svg"
+                  alt="Tap Game"
+                />
+              </div>
+            </div>
+          </div>
+          <div class="menu-icon menu-icon-show">
+            <img src="images/menu-tap-icon.svg" alt="" />
+          </div>
+          <span class="menu-text">Tap Game</span>
+        </div>
+        <div class="menu-item item-prof navigate" data-page="profile">
+          <div class="menu-item-act-shadov">
+            <div class="menu-icon-act">
+              <div class="menu-icon-act-img">
+                <img
+                  src="images/menu-prof-activ-icon.svg"
+                  alt="Tap Game"
+                />
+              </div>
+            </div>
+          </div>
+          <div class="menu-icon">
+            <img src="images/menu-prof-icon.svg" alt="" />
+          </div>
+          <span class="menu-text">Profile</span>
+        </div>
+        <div class="menu-item item-slot navigate" data-page="slots">
+          <div class="menu-item-act-shadov">
+            <div class="menu-icon-act">
+              <div class="menu-icon-act-img">
+                <img
+                  src="images/menu-slot-activ-icon.svg"
+                  alt="Tap Game"
+                />
+              </div>
+            </div>
+          </div>
+          <div class="menu-icon">
+            <img src="images/menu-slot-icon.svg" alt="" />
+          </div>
+          <span class="menu-text">Slots</span>
+        </div>
+        <div class="menu-item item-sett navigate" data-page="settings">
+          <div class="menu-item-act-shadov">
+            <div class="menu-icon-act">
+              <div class="menu-icon-act-img">
+                <img
+                  src="images/menu-setting-activ-icon.svg"
+                  alt="Tap Game"
+                />
+              </div>
+            </div>
+          </div>
+          <div class="menu-icon">
+            <img src="images/menu-setting-icon.svg" alt="" />
+          </div>
+          <span class="menu-text">Settings</span>
+        </div>
+        <div class="menu-item item-wall navigate" data-page="wallet">
+          <div class="menu-item-act-shadov">
+            <div class="menu-icon-act">
+              <div class="menu-icon-act-img">
+                <img
+                  src="images/menu-wallet-activ-icon.svg"
+                  alt="Tap Game"
+                />
+              </div>
+            </div>
+          </div>
+          <div class="menu-icon">
+            <img src="images/menu-wallet-icon.svg" alt="" />
+          </div>
+          <span class="menu-text">Wallet</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+  const menu = document.querySelector(".footer-menu");
+  const itemsAct = document.querySelectorAll(".menu-icon-act");
+  const itemsShado = document.querySelectorAll(".menu-item-act-shadov");
+  const icons = document.querySelectorAll(".menu-icon");
+
+  menu.addEventListener("click", (e) => {
+    const menuItem = e.target.closest(".menu-item");
+    if (!menuItem) return;
+    const actItemSadow = menuItem.querySelector(".menu-item-act-shadov");
+    const actItem = actItemSadow.querySelector(".menu-icon-act");
+    const actIcon = menuItem.querySelector(".menu-icon");
+    itemsAct.forEach((el) => {
+      el.classList.remove("menu-item-act-show");
+    });
+    itemsShado.forEach((el) => {
+      el.classList.remove("menu-item-act-shadov-show");
+    });
+
+    icons.forEach((el) => {
+      el.classList.remove("menu-icon-show");
+    });
+
+    actItem.classList.add("menu-item-act-show");
+    actItemSadow.classList.add("menu-item-act-shadov-show");
+    actIcon.classList.add("menu-icon-show");
+  });
+</script>

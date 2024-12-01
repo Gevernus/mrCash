@@ -1,0 +1,96 @@
+<head>
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    img {
+      width: 100%;
+    }
+
+    #loading-content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 2vh;
+      background-image: url(images/loading/loading-bg.svg);
+      background-position: 50% 50%;
+      background-repeat: no-repeat;
+      background-size: cover;
+      /* width: 428px;
+      height: 796px; */
+      width: 100%;
+      height: 100%;
+
+      border: none;
+      font-family: "Roboto", sans-serif;
+    }
+
+    .loading-logo {
+      width: 83.2%;
+    }
+
+    @keyframes loading {
+      0% {
+        transform: rotateZ(0deg);
+      }
+      100% {
+        transform: rotateZ(360deg);
+      }
+    }
+
+    .loading-img {
+      width: 15.2vw;
+      height: 15.2vw;
+      animation: loading 1s linear infinite normal;
+    }
+
+    .loading-img img {
+      width: auto;
+      height: 100%;
+    }
+
+    .loading-title {
+      font-weight: 700;
+      font-size: 5.7vw;
+      line-height: 1.5;
+      letter-spacing: 0.01em;
+      color: #fff;
+    }
+
+    .loading-subtitle {
+      font-weight: 500;
+      font-size: 3.3vw;
+      line-height: 1.57;
+      letter-spacing: 0.01em;
+      color: rgba(255, 255, 255, 0.64);
+    }
+
+    .loading-text {
+      width: 60.8%;
+      font-weight: 500;
+      font-size: 4.3vw;
+      line-height: 133%;
+      letter-spacing: 0.01em;
+      text-align: center;
+      color: #fff;
+    }
+
+    .loading-tg {
+      margin-bottom: 3.1vh;
+      width: 11.3vw;
+    }
+  </style>
+</head>
+<div id="loading-content">
+  <div class="loading-logo">
+    <img src="images/loading/mr-cash.svg" alt="logo" />
+  </div>
+  <div class="loading-img">
+    <img src="images/loading/loading-icon.svg" alt="logo" />
+  </div>
+  <span class="loading-title">Загрузка</span>
+  <span class="loading-subtitle">Оставайтесь с нами</span>
+  <div class="loading-text">Больше информации на нашем оффициальном канале</div>
+  <div class="loading-tg">
+    <img src="images/loading/tg-icon.svg" alt="Telegramm" />
+  </div>
+</div>

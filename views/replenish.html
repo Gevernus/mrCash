@@ -1,0 +1,598 @@
+<head>
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    /* ========================Menu================ */
+    .footer-menu {
+      position: fixed;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      height: 17vw;
+      background-color: #2c2c2c;
+      border-top-left-radius: 3.5vh;
+      border-top-right-radius: 3.5vh;
+    }
+
+    .menu-wrapper {
+      margin: 0 auto;
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      width: 85%;
+      height: 100%;
+    }
+
+    .menu-item {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1.5vw;
+      margin-bottom: 3vw;
+      width: 14.5vw;
+      font-family: "Manrope", sans-serif;
+      font-weight: 400;
+      font-size: 2.7vw;
+      color: #bdbdbd;
+    }
+
+    .menu-icon-act {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 100%;
+      width: 14vw;
+      height: 14vw;
+      background-color: #2c2c2c;
+      box-shadow: 0 0.4vh 0.4vh 0 rgba(0, 0, 0, 0.25);
+      transition: transform 0.5s ease-out;
+      transform: translateY(-10%);
+    }
+
+    .menu-item-act-shadov {
+      position: absolute;
+      bottom: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 100%;
+      opacity: 0;
+      overflow: hidden;
+      transition: opacity 0.2s 0.1s ease-in;
+    }
+
+    .menu-item-act-shadov::before {
+      transform: translateY(-10%);
+      content: "";
+      position: absolute;
+      bottom: 0;
+      left: -1vw;
+      border-radius: 100%;
+      width: 16vw;
+      height: 16vw;
+      background-color: #1c1c1c;
+      opacity: 0;
+      transition: transform 0.5s ease-out, opacity 0.2s ease-out;
+    }
+
+    .menu-icon-act-img {
+      width: 5vw;
+    }
+
+    .menu-item-act-shadov-show::before {
+      transform: translateY(-37%);
+      opacity: 1;
+      transition: transform 0.5s ease-out, opacity 0.8s ease-out;
+    }
+
+    .menu-item-act-shadov-show {
+      overflow: visible;
+      opacity: 1;
+      transition: opacity 0.6s ease-out;
+    }
+
+    .menu-item-act-show {
+      transform: translateY(-50%);
+      transition: transform 0.5s ease-out;
+    }
+
+    .menu-icon-show {
+      display: none;
+    }
+
+    .menu-icon {
+      width: 5.6vw;
+    }
+
+    /* ================================ */
+
+    img {
+      width: 100%;
+    }
+
+    #replenish-content {
+      font-family: "Roboto", sans-serif;
+      background-color: #1c1c1c;
+      width: 428px;
+      height: 796px;
+      width: 100%;
+      height: 100%;
+
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      border: none;
+    }
+
+    .replenish-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin: 1.5vh 0 3.7vh;
+      width: 91.2%;
+    }
+
+    #replenish-top-back {
+      font-weight: 400;
+      font-size: 4.2vw;
+      text-align: center;
+      color: #fff;
+    }
+
+    .replenish-top-back-img {
+      display: inline-block;
+      margin-right: 4.6vw;
+      width: 2.1vw;
+    }
+
+    .replenish-top-close-img {
+      width: 6.3vw;
+    }
+
+    .replenish-title {
+      margin-bottom: 2.5vh;
+      width: 73.4%;
+      font-weight: 400;
+      font-size: 4.9vw;
+      line-height: 1.1;
+      text-align: center;
+      color: #fff;
+    }
+
+    .replenish-title span {
+      font-weight: 900;
+    }
+
+    .replenish-sum {
+      margin-bottom: 1.3vh;
+      font-family: "Titan One", sans-serif;
+      font-weight: 400;
+      font-size: 11.2vw;
+      text-align: center;
+    }
+
+    #replenish-sum-value {
+      color: #8a8a8a;
+    }
+
+    .replenish-sum-text {
+      background-image: radial-gradient(
+          178.09% 220.16% at 94.89% -132.81%,
+          rgb(255, 122, 0) 67.58895516395569%,
+          rgb(255, 199, 0) 100%
+        ),
+        radial-gradient(
+          137.51% 118.3% at 32.95% 0%,
+          rgb(255, 137, 137) 21.246936917304993%,
+          rgb(255, 169, 106) 88.62413167953491%
+        ),
+        radial-gradient(
+          182.56% 55.34% at 5.68% 100%,
+          rgb(246, 251, 34) 0%,
+          rgb(255, 158, 69) 100%
+        ),
+        radial-gradient(
+          238.39% 44.19% at 96.59% 31.25%,
+          rgb(255, 255, 255) 0%,
+          rgb(255, 255, 255) 100%
+        );
+      background-clip: text;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .replenish-subtitle {
+      margin-bottom: 1.3vh;
+      font-family: "Titan One", sans-serif;
+      font-weight: 400;
+      font-size: 3.1vw;
+      text-align: center;
+      color: #fff;
+    }
+
+    #replenish-subtitle-money,
+    #replenish-subtitle-bonus,
+    #replenish-subtitle-frispin {
+      font-family: "Titan One", sans-serif;
+      font-weight: 400;
+      font-size: 3.1vw;
+      text-align: center;
+      color: #fff;
+    }
+
+    #replenish-subtitle-money {
+      padding: 0.9vh;
+      margin-bottom: 1.2vh;
+      border: 0.2vh solid #2c2c2c;
+      border-radius: 1.6vh;
+      width: 31.8vw;
+      /* height: 30px; */
+    }
+
+    #replenish-subtitle-bonus {
+      padding: 1vh;
+      margin-bottom: 1.2vh;
+      border-radius: 1.6vh;
+      width: 31.8vw;
+      /* height: 30px; */
+      background-image: radial-gradient(
+          178.09% 220.16% at 94.89% -132.81%,
+          rgb(255, 122, 0) 67.58895516395569%,
+          rgb(255, 199, 0) 100%
+        ),
+        radial-gradient(
+          137.51% 118.3% at 32.95% 0%,
+          rgb(255, 137, 137) 21.246936917304993%,
+          rgb(255, 169, 106) 88.62413167953491%
+        ),
+        radial-gradient(
+          182.56% 55.34% at 5.68% 100%,
+          rgb(246, 251, 34) 0%,
+          rgb(255, 158, 69) 100%
+        ),
+        radial-gradient(
+          238.39% 44.19% at 96.59% 31.25%,
+          rgb(255, 255, 255) 0%,
+          rgb(255, 255, 255) 100%
+        );
+    }
+
+    #replenish-subtitle-frispin {
+      padding: 0.9vh;
+      margin-bottom: 3.8vh;
+      border: 0.1vh solid #fff500;
+      border-radius: 1.6vh;
+      width: 31.8vw;
+      /* height: 30px; */
+      box-shadow: 0 0 0.4vh 0 #ef890f;
+    }
+
+    #replenish-wrapper {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 3.3vw;
+      margin-bottom: 3.8vh;
+    }
+
+    .replenish-item {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 2.2vh;
+      width: 28.1vw;
+      height: 6.2vh;
+      background: #2c2c2c;
+      font-weight: 400;
+      font-size: 4.9vw;
+      /* text-align: center; */
+      color: #fff;
+    }
+
+    .replenish-item-activ {
+      background-image: radial-gradient(
+          178.09% 220.16% at 94.89% -132.81%,
+          rgb(255, 122, 0) 67.58895516395569%,
+          rgb(255, 199, 0) 100%
+        ),
+        radial-gradient(
+          137.51% 118.3% at 32.95% 0%,
+          rgb(255, 137, 137) 21.246936917304993%,
+          rgb(255, 169, 106) 88.62413167953491%
+        ),
+        radial-gradient(
+          182.56% 55.34% at 5.68% 100%,
+          rgb(246, 251, 34) 0%,
+          rgb(255, 158, 69) 100%
+        ),
+        radial-gradient(
+          238.39% 44.19% at 96.59% 31.25%,
+          rgb(255, 255, 255) 0%,
+          rgb(255, 255, 255) 100%
+        );
+    }
+
+    .replenish-item-popular {
+      position: relative;
+    }
+
+    .replenish-item-popular::before {
+      content: "ПОПУЛЯРНО";
+      position: absolute;
+      top: 0;
+      left: 50%;
+      border: 0.1vh solid #1c1c1c;
+      border-radius: 1.1vh;
+      padding: 0.4vh 2vw;
+      background: radial-gradient(
+          178.09% 220.16% at 94.89% -132.81%,
+          rgb(255, 122, 0) 67.58895516395569%,
+          rgb(255, 199, 0) 100%
+        ),
+        radial-gradient(
+          137.51% 118.3% at 32.95% 0%,
+          rgb(255, 137, 137) 21.246936917304993%,
+          rgb(255, 169, 106) 88.62413167953491%
+        ),
+        radial-gradient(
+          182.56% 55.34% at 5.68% 100%,
+          rgb(246, 251, 34) 0%,
+          rgb(255, 158, 69) 100%
+        ),
+        radial-gradient(
+          238.39% 44.19% at 96.59% 31.25%,
+          rgb(255, 255, 255) 0%,
+          rgb(255, 255, 255) 100%
+        );
+      font-weight: 400;
+      font-size: 2.4vw;
+      text-align: center;
+      color: #fff;
+      transform: translate(-50%, -50%);
+    }
+
+    .replenish-bottom-text {
+      margin-bottom: 1.7vh;
+      width: 67.3%;
+      font-weight: 400;
+      font-size: 4.9vw;
+      text-align: center;
+      color: #fff;
+    }
+
+    .replenish-btn-icon {
+      display: inline-block;
+      width: 4.7vw;
+    }
+
+    #replenish-btn-cripta,
+    #replenish-btn-card,
+    #replenish-btn-promo {
+      padding: 2.5vh 3.8vw;
+      border-radius: 1.7vh;
+      width: 84.6%;
+      /* height: 64px; */
+      box-shadow: 0 0.4vh 0.4vh 0 rgba(0, 0, 0, 0.25);
+      font-weight: 400;
+      font-size: 4.9vw;
+      color: #fff;
+    }
+
+    #replenish-btn-cripta {
+      margin-bottom: 1.3vh;
+      background: radial-gradient(
+          178.09% 220.16% at 94.89% -132.81%,
+          rgb(255, 122, 0) 67.58895516395569%,
+          rgb(255, 199, 0) 100%
+        ),
+        radial-gradient(
+          137.51% 118.3% at 32.95% 0%,
+          rgb(255, 137, 137) 21.246936917304993%,
+          rgb(255, 169, 106) 88.62413167953491%
+        ),
+        radial-gradient(
+          182.56% 55.34% at 5.68% 100%,
+          rgb(246, 251, 34) 0%,
+          rgb(255, 158, 69) 100%
+        ),
+        radial-gradient(
+          238.39% 44.19% at 96.59% 31.25%,
+          rgb(255, 255, 255) 0%,
+          rgb(255, 255, 255) 100%
+        );
+    }
+
+    #replenish-btn-card {
+      margin-bottom: 1.3vh;
+      background: radial-gradient(
+          178.09% 220.16% at 94.89% -132.81%,
+          rgb(255, 122, 0) 67.58895516395569%,
+          rgb(255, 199, 0) 100%
+        ),
+        radial-gradient(
+          137.51% 118.3% at 32.95% 0%,
+          rgb(255, 137, 137) 21.246936917304993%,
+          rgb(255, 169, 106) 88.62413167953491%
+        ),
+        radial-gradient(
+          182.56% 55.34% at 5.68% 100%,
+          rgb(246, 251, 34) 0%,
+          rgb(255, 158, 69) 100%
+        ),
+        radial-gradient(
+          238.39% 44.19% at 96.59% 31.25%,
+          rgb(255, 255, 255) 0%,
+          rgb(255, 255, 255) 100%
+        );
+    }
+
+    #replenish-btn-promo {
+      margin-bottom: 3vh;
+      background: #2c2c2c;
+    }
+  </style>
+</head>
+<div id="replenish-content">
+  <div class="replenish-top">
+    <div id="replenish-top-back">
+      <div class="replenish-top-back-img">
+        <img src="images/replenish/replenish-back.svg" alt="" />
+      </div>
+      <span>Назад в лобби</span>
+    </div>
+    <div id="replenish-top-close">
+      <div class="replenish-top-close-img">
+        <img src="images/replenish/replenish-close.svg" alt="" />
+      </div>
+    </div>
+  </div>
+  <div class="replenish-title">
+    Введите сумму пополнения, чтобы увидеть доступный <span>БОНУС</span> на
+    депозит
+  </div>
+  <div class="replenish-sum">
+    <span id="replenish-sum-value">500</span>
+    <span class="replenish-sum-text"> RUB</span>
+  </div>
+  <span class="replenish-subtitle">Вы получите:</span>
+  <div id="replenish-subtitle-money">500 RUB</div>
+  <div id="replenish-subtitle-bonus">Бонус 500 RUB</div>
+  <div id="replenish-subtitle-frispin">+ 0 Фриспинов</div>
+  <div id="replenish-wrapper">
+    <div class="replenish-item replenish-item-activ">500 ₽</div>
+    <div class="replenish-item">1000 ₽</div>
+    <div class="replenish-item replenish-item-popular">2000 ₽</div>
+    <div class="replenish-item">3000 ₽</div>
+    <div class="replenish-item">5000 ₽</div>
+    <div class="replenish-item">10000 ₽</div>
+  </div>
+  <div class="replenish-bottom-text">
+    Каким методом хотите пополнить баланс?
+  </div>
+  <div id="replenish-btn-cripta">
+    <div class="replenish-btn-icon">
+      <img src="images/replenish/cripta-icon.svg" alt="ton" />
+    </div>
+    Криптовалюта
+  </div>
+  <div id="replenish-btn-card">
+    <div class="replenish-btn-icon">
+      <img src="images/replenish/card-icon.svg" alt="card" />
+    </div>
+    Банковская карта
+  </div>
+  <div id="replenish-btn-promo">Ввести промокод</div>
+
+  <!-- ========================men========================= -->
+  <div class="footer-menu">
+    <div class="menu-wrapper">
+      <div class="menu-item item-tap">
+        <div class="menu-item-act-shadov menu-item-act-shadov-show">
+          <div class="menu-icon-act menu-item-act-show">
+            <div class="menu-icon-act-img">
+              <img
+                src="images/menu-tap-activ-icon.svg"
+                alt="Tap Game"
+              />
+            </div>
+          </div>
+        </div>
+        <div class="menu-icon menu-icon-show">
+          <img src="images/menu-tap-icon.svg" alt="" />
+        </div>
+        <span class="menu-text">Tap Game</span>
+      </div>
+      <div class="menu-item item-prof">
+        <div class="menu-item-act-shadov">
+          <div class="menu-icon-act">
+            <div class="menu-icon-act-img">
+              <img
+                src="images/menu-prof-activ-icon.svg"
+                alt="Tap Game"
+              />
+            </div>
+          </div>
+        </div>
+        <div class="menu-icon">
+          <img src="images/menu-prof-icon.svg" alt="" />
+        </div>
+        <span class="menu-text">Profile</span>
+      </div>
+      <div class="menu-item item-slot">
+        <div class="menu-item-act-shadov">
+          <div class="menu-icon-act">
+            <div class="menu-icon-act-img">
+              <img
+                src="images/menu-slot-activ-icon.svg"
+                alt="Tap Game"
+              />
+            </div>
+          </div>
+        </div>
+        <div class="menu-icon">
+          <img src="images/menu-slot-icon.svg" alt="" />
+        </div>
+        <span class="menu-text">Slots</span>
+      </div>
+      <div class="menu-item item-sett">
+        <div class="menu-item-act-shadov">
+          <div class="menu-icon-act">
+            <div class="menu-icon-act-img">
+              <img
+                src="images/menu-setting-activ-icon.svg"
+                alt="Tap Game"
+              />
+            </div>
+          </div>
+        </div>
+        <div class="menu-icon">
+          <img src="images/menu-setting-icon.svg" alt="" />
+        </div>
+        <span class="menu-text">Settings</span>
+      </div>
+      <div class="menu-item item-wall">
+        <div class="menu-item-act-shadov">
+          <div class="menu-icon-act">
+            <div class="menu-icon-act-img">
+              <img
+                src="images/menu-wallet-activ-icon.svg"
+                alt="Tap Game"
+              />
+            </div>
+          </div>
+        </div>
+        <div class="menu-icon">
+          <img src="images/menu-wallet-icon.svg" alt="" />
+        </div>
+        <span class="menu-text">Wallet</span>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+  const menu = document.querySelector(".footer-menu");
+  const itemsAct = document.querySelectorAll(".menu-icon-act");
+  const itemsShado = document.querySelectorAll(".menu-item-act-shadov");
+  const icons = document.querySelectorAll(".menu-icon");
+
+  menu.addEventListener("click", (e) => {
+    const menuItem = e.target.closest(".menu-item");
+    if (!menuItem) return;
+    const actItemSadow = menuItem.querySelector(".menu-item-act-shadov");
+    const actItem = actItemSadow.querySelector(".menu-icon-act");
+    const actIcon = menuItem.querySelector(".menu-icon");
+    itemsAct.forEach((el) => {
+      el.classList.remove("menu-item-act-show");
+    });
+    itemsShado.forEach((el) => {
+      el.classList.remove("menu-item-act-shadov-show");
+    });
+
+    icons.forEach((el) => {
+      el.classList.remove("menu-icon-show");
+    });
+
+    actItem.classList.add("menu-item-act-show");
+    actItemSadow.classList.add("menu-item-act-shadov-show");
+    actIcon.classList.add("menu-icon-show");
+  });
+</script>

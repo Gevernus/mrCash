@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+
+    <title>Tap Slot</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="/styles.css">
+    <style>
+        img {
+            width: 100%;
+        }
+    
+        #loading-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-end;
+            gap: 2vh;
+            background-image: url(images/loading/loading-bg.svg);
+            background-position: 50% 50%;
+            background-repeat: no-repeat;
+            background-size: cover;
+            /* width: 428px;
+          height: 796px; */
+            width: 100%;
+            height: 100%;
+    
+            border: none;
+            font-family: "Roboto", sans-serif;
+        }
+    
+        .loading-logo {
+            width: 83.2%;
+        }
+    
+        @keyframes loading {
+            0% {
+                transform: rotateZ(0deg);
+            }
+    
+            100% {
+                transform: rotateZ(360deg);
+            }
+        }
+    
+        .loading-img {
+            width: 15.2vw;
+            height: 15.2vw;
+            animation: loading 1s linear infinite normal;
+        }
+    
+        .loading-img img {
+            width: auto;
+            height: 100%;
+        }
+    
+        .loading-title {
+            font-weight: 700;
+            font-size: 5.7vw;
+            line-height: 1.5;
+            letter-spacing: 0.01em;
+            color: #fff;
+        }
+    
+        .loading-subtitle {
+            font-weight: 500;
+            font-size: 3.3vw;
+            line-height: 1.57;
+            letter-spacing: 0.01em;
+            color: rgba(255, 255, 255, 0.64);
+        }
+    
+        .loading-text {
+            width: 60.8%;
+            font-weight: 500;
+            font-size: 4.3vw;
+            line-height: 133%;
+            letter-spacing: 0.01em;
+            text-align: center;
+            color: #fff;
+        }
+    
+        .loading-tg {
+            margin-bottom: 3.1vh;
+            width: 11.3vw;
+        }
+    </style>
+</head>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-0SSF06Z0ZD"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+
+    gtag('config', 'G-VY497NX68S');
+    gtag('config', 'G-0SSF06Z0ZD');
+    gtag('config', 'G-7D05TVG0NW');
+    gtag('config', 'G-6RERM51KDH');
+</script>
+
+<body>
+    <div id="loading-screen">
+        <div id="loading-content">
+            <div class="loading-logo">
+                <img src="images/loading/mr-cash.svg" alt="logo" />
+            </div>
+            <div class="loading-img">
+                <img src="images/loading/loading-icon.svg" alt="logo" />
+            </div>
+            <span class="loading-title">Загрузка</span>
+            <span class="loading-subtitle">Оставайтесь с нами</span>
+            <div class="loading-text">Больше информации на нашем оффициальном канале</div>
+            <div class="loading-tg">
+                <img src="images/loading/tg-icon.svg" alt="Telegramm" />
+            </div>
+        </div>
+    </div>
+    <div id="main">
+        <div id="content" class="container">
+            <!-- Dynamic content will be loaded here -->
+        </div>
+
+        <!-- <div class="button-container">
+            <div class="button navigate" data-page="shop">
+                <img src="/images/shop.webp" alt="Shop">
+                <span>Shop</span>
+            </div>
+            <div class="button navigate" data-page="profile">
+                <img src="/images/profile.webp" alt="Profile">
+                <span>Profile</span>
+            </div>
+            <div class="center-button navigate active" data-page="home">
+                <img src="/images/taps.webp">
+            </div>
+            <div class="button navigate" data-page="roadmap">
+                <img src="/images/roadMap.webp" alt="RoadMap">
+                <span>RoadMap</span>
+            </div>
+            <div class="button navigate" data-page="slots">
+                <img src="/images/slots.webp" alt="Slots">
+                <span>Slots</span>
+            </div>
+            
+        </div> -->
+    </div>
+    <div id="packModal" class="modal">
+        <div class="modal-content">
+            <h2>Pack content</h2>
+            <div id="packItems">
+    
+            </div>
+            <button class="close-btn">Claim</button>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/eruda"></script>
+    <script type="module" src="/systemManager.js"></script>
+    <script type="module" src="/ecs.js"></script>
+    <script type="module" src="/systems.js"></script>
+    <script type="module" src="/components.js"></script>
+    <script type="module" src="/index.js"></script>
+</body>
+
+</html>

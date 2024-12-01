@@ -1,0 +1,545 @@
+<head>
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    /* ========================Menu================ */
+    .footer-menu {
+      position: fixed;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      height: 17vw;
+      background-color: #2c2c2c;
+      border-top-left-radius: 3.5vh;
+      border-top-right-radius: 3.5vh;
+    }
+
+    .menu-wrapper {
+      margin: 0 auto;
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      width: 85%;
+      height: 100%;
+    }
+
+    .menu-item {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1.5vw;
+      margin-bottom: 3vw;
+      width: 14.5vw;
+      font-family: "Manrope", sans-serif;
+      font-weight: 400;
+      font-size: 2.7vw;
+      color: #bdbdbd;
+    }
+
+    .menu-icon-act {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 100%;
+      width: 14vw;
+      height: 14vw;
+      background-color: #2c2c2c;
+      box-shadow: 0 0.4vh 0.4vh 0 rgba(0, 0, 0, 0.25);
+      transition: transform 0.5s ease-out;
+      transform: translateY(-10%);
+    }
+
+    .menu-item-act-shadov {
+      position: absolute;
+      bottom: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 100%;
+      opacity: 0;
+      overflow: hidden;
+      transition: opacity 0.2s 0.1s ease-in;
+    }
+
+    .menu-item-act-shadov::before {
+      transform: translateY(-10%);
+      content: "";
+      position: absolute;
+      bottom: 0;
+      left: -1vw;
+      border-radius: 100%;
+      width: 16vw;
+      height: 16vw;
+      background-color: #1c1c1c;
+      opacity: 0;
+      transition: transform 0.5s ease-out, opacity 0.2s ease-out;
+    }
+
+    .menu-icon-act-img {
+      width: 5vw;
+    }
+
+    .menu-item-act-shadov-show::before {
+      transform: translateY(-37%);
+      opacity: 1;
+      transition: transform 0.5s ease-out, opacity 0.8s ease-out;
+    }
+
+    .menu-item-act-shadov-show {
+      overflow: visible;
+      opacity: 1;
+      transition: opacity 0.6s ease-out;
+    }
+
+    .menu-item-act-show {
+      transform: translateY(-50%);
+      transition: transform 0.5s ease-out;
+    }
+
+    .menu-icon-show {
+      display: none;
+    }
+
+    .menu-icon {
+      width: 5.6vw;
+    }
+
+    /* ================================ */
+
+    img {
+      width: 100%;
+    }
+
+    #wallet-content {
+      position: relative;
+      z-index: 0;
+      font-family: "Roboto", sans-serif;
+      background-color: #000;
+      width: 428px;
+      height: 796px;
+      width: 100%;
+      height: 100%;
+
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      border: none;
+    }
+
+    .wallet-bg::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: -1;
+      width: 100%;
+      height: 29.6vh;
+      background: url(images/setting-bg.svg);
+      background-position: 50% 50%;
+      background-repeat: no-repeat;
+      background-size: cover;
+    }
+
+    .wallet-bg {
+    }
+
+    .wallet-title {
+      margin: 1.9vh 0 1.9vh;
+      display: flex;
+      gap: 0.7vh;
+      align-items: center;
+      justify-content: start;
+      width: 91.2%;
+    }
+
+    .wallet-title-img {
+      width: 7.2vw;
+    }
+
+    .wallet-title-text {
+      font-weight: 500;
+      font-size: 6.4vw;
+      letter-spacing: 0.04em;
+      color: #fff;
+    }
+
+    .wallet-wrapper {
+      border-left: 0.2vh solid #2c2c2c;
+      border-right: 0.2vh solid #2c2c2c;
+      border-radius: 1.7vh;
+      width: 91.2%;
+      height: 100%;
+      box-shadow: 0 0.2vh 1.6vh 0 rgba(19, 19, 19, 0.32);
+      background: #1c1c1c;
+    }
+
+    .profil-balance {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: start;
+      border-radius: 1.7vh;
+      height: 13.1vh;
+      padding: 2.3vh;
+      box-shadow: 0 0.4vh 5vh 0 rgba(0, 0, 0, 0.25);
+      background: url("images/profil/profil-balance-bg.svg");
+      background-position: 50% 50%;
+      background-repeat: no-repeat;
+      background-size: cover;
+      border: 0.3vh groove #f7c243;
+    }
+
+    .profil-balance-text {
+      margin-bottom: 1.1vh;
+      font-weight: 400;
+      font-size: 3.8vw;
+      color: #fff;
+    }
+
+    #profil-balance-value {
+      font-weight: 700;
+      font-size: 6.2vw;
+      color: #fff;
+    }
+
+    .wallet-btns {
+      display: flex;
+      align-items: center;
+      justify-content: space-around;
+      height: 10.2vh;
+      border-bottom: 0.1vh solid #2c2c2c;
+      font-weight: 400;
+      font-family: "Poppins", sans-serif;
+      font-size: 1.8vh;
+      line-height: 1.12;
+      color: #fff;
+      text-align: center;
+    }
+
+    #wallet-btn-rep {
+      border-radius: 1.7vh;
+      padding: 1.2vh;
+      width: 46.9%;
+      box-shadow: 0 0.2vh 0 0 #705438;
+      background: radial-gradient(
+          178.09% 220.16% at 94.89% -132.81%,
+          rgb(255, 122, 0) 67.58895516395569%,
+          rgb(255, 199, 0) 100%
+        ),
+        radial-gradient(
+          137.51% 118.3% at 32.95% 0%,
+          rgb(255, 137, 137) 21.246936917304993%,
+          rgb(255, 169, 106) 88.62413167953491%
+        ),
+        radial-gradient(
+          182.56% 55.34% at 5.68% 100%,
+          rgb(246, 251, 34) 0%,
+          rgb(255, 158, 69) 100%
+        ),
+        radial-gradient(
+          238.39% 44.19% at 96.59% 31.25%,
+          rgb(255, 255, 255) 0%,
+          rgb(255, 255, 255) 100%
+        );
+    }
+
+    #wallet-btn-out {
+      border-radius: 1.7vh;
+      padding: 1.2vh;
+      width: 46.9%;
+      border: 0.1vh solid #fff;
+    }
+
+    .wallet-history {
+      margin-top: 2.8vh;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-family: "Poppins", sans-serif;
+    }
+
+    .wallet-history-title {
+      margin-left: 5.7vw;
+      font-weight: 700;
+      font-size: 4.7vw;
+      line-height: 1;
+      color: #fff;
+    }
+
+    .wallet-history-desc {
+      margin-right: 5.7vw;
+      font-weight: 500;
+      font-size: 3.3vw;
+      line-height: 1.14;
+      text-decoration: underline;
+      text-decoration-skip-ink: none;
+      color: #fff;
+    }
+
+    #histori-content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .histori-content-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.2vh 0px;
+      width: 93.2%;
+    }
+
+    .histori-content-item:not(:last-child) {
+      border-bottom: 0.1vh solid #2c2c2c;
+    }
+
+    .histori-content-icon {
+      width: 4.7vw;
+      position: relative;
+    }
+
+    .histori-content-bg {
+      margin-right: 15px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 0.6vh;
+      width: 10.5vw;
+      height: 10.5vw;
+      background: #212125;
+    }
+
+    .histori-content-text {
+      margin-right: auto;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: center;
+      gap: 0.6vh;
+    }
+
+    .histori-content-bank {
+      font-family: "Manrope", sans-serif;
+      font-weight: 500;
+      font-size: 2.8vw;
+      line-height: 1.33;
+      color: #fff;
+    }
+
+    .histori-content-status {
+      font-family: "Poppins", sans-serif;
+      font-weight: 400;
+      font-size: 3.2vw;
+      color: #6c757d;
+    }
+
+    .histori-content-descr {
+      display: flex;
+      flex-direction: column;
+      align-items: end;
+      justify-content: center;
+      gap: 0.6vh;
+    }
+
+    .histori-content-value {
+      font-family: "Poppins", sans-serif;
+      font-weight: 700;
+      font-size: 3.7vw;
+      color: #fff;
+    }
+
+    .histori-content-time {
+      font-family: "Poppins", sans-serif;
+      font-weight: 700;
+      font-size: 2.4vw;
+      text-align: right;
+      color: #6c757d;
+    }
+  </style>
+</head>
+<div id="wallet-content">
+  <div class="wallet-bg"></div>
+  <div class="wallet-title">
+    <div class="wallet-title-img">
+      <img src="images/wallet/wallet-icon.svg" alt="gear" />
+    </div>
+    <span class="wallet-title-text">Кошелёк</span>
+  </div>
+  <div class="wallet-wrapper">
+    <div class="profil-balance">
+      <span class="profil-balance-text">Баланс</span>
+      <span id="profil-balance-value">252 000<span> RUB</span></span>
+    </div>
+    <div class="wallet-btns">
+      <div id="wallet-btn-rep">Пополнить</div>
+      <div id="wallet-btn-out">Вывести</div>
+    </div>
+    <div class="wallet-history">
+      <div class="wallet-history-title">История</div>
+      <div class="wallet-history-desc">Подробнее</div>
+    </div>
+    <div id="histori-content">
+      <div class="histori-content-item">
+        <div class="histori-content-bg">
+          <div class="histori-content-icon">
+            <img src="images/wallet/wallet-out-icon.svg" alt="" />
+          </div>
+        </div>
+        <div class="histori-content-text">
+          <span class="histori-content-bank">Вывод на карту МИР*9398</span>
+          <span class="histori-content-status">Успешно</span>
+        </div>
+        <div class="histori-content-descr">
+          <div class="histori-content-value">50 000 RUB</div>
+          <div class="histori-content-time">Сегодня в 18:18</div>
+        </div>
+      </div>
+      <div class="histori-content-item">
+        <div class="histori-content-bg">
+          <div class="histori-content-icon">
+            <img src="images/wallet/wallet-rep-icon.svg" alt="" />
+          </div>
+        </div>
+        <div class="histori-content-text">
+          <span class="histori-content-bank">Пополнение: СБП Сбербанк</span>
+          <span class="histori-content-status">Успешно</span>
+        </div>
+        <div class="histori-content-descr">
+          <div class="histori-content-value">10 000 RUB</div>
+          <div class="histori-content-time">Сегодня в 13:00</div>
+        </div>
+      </div>
+      <div class="histori-content-item">
+        <div class="histori-content-bg">
+          <div class="histori-content-icon">
+            <img src="images/wallet/wallet-out-icon.svg" alt="" />
+          </div>
+        </div>
+        <div class="histori-content-text">
+          <span class="histori-content-bank">Вывод на карту МИР*9398</span>
+          <span class="histori-content-status">Успешно</span>
+        </div>
+        <div class="histori-content-descr">
+          <div class="histori-content-value">75 000 RUB</div>
+          <div class="histori-content-time">Вчера в 15:34</div>
+        </div>
+      </div>
+      <div class="histori-content-item">
+        <div class="histori-content-bg">
+          <div class="histori-content-icon">
+            <img src="images/wallet/wallet-out-icon.svg" alt="" />
+          </div>
+        </div>
+        <div class="histori-content-text">
+          <span class="histori-content-bank">Вывод на карту МИР*9398</span>
+          <span class="histori-content-status">Успешно</span>
+        </div>
+        <div class="histori-content-descr">
+          <div class="histori-content-value">250 000 RUB</div>
+          <div class="histori-content-time">22 сентября 23:00</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- ========================men========================= -->
+  <div class="footer-menu">
+    <div class="menu-wrapper">
+      <div class="menu-item item-tap navigate" data-page="home">
+        <div class="menu-item-act-shadov menu-item-act-shadov-show">
+          <div class="menu-icon-act menu-item-act-show">
+            <div class="menu-icon-act-img">
+              <img src="images/menu-tap-activ-icon.svg" alt="Tap Game" />
+            </div>
+          </div>
+        </div>
+        <div class="menu-icon menu-icon-show">
+          <img src="images/menu-tap-icon.svg" alt="" />
+        </div>
+        <span class="menu-text">Tap Game</span>
+      </div>
+      <div class="menu-item item-prof navigate" data-page="profile">
+        <div class="menu-item-act-shadov">
+          <div class="menu-icon-act">
+            <div class="menu-icon-act-img">
+              <img src="images/menu-prof-activ-icon.svg" alt="Tap Game" />
+            </div>
+          </div>
+        </div>
+        <div class="menu-icon">
+          <img src="images/menu-prof-icon.svg" alt="" />
+        </div>
+        <span class="menu-text">Profile</span>
+      </div>
+      <div class="menu-item item-slot navigate" data-page="slots">
+        <div class="menu-item-act-shadov">
+          <div class="menu-icon-act">
+            <div class="menu-icon-act-img">
+              <img src="images/menu-slot-activ-icon.svg" alt="Tap Game" />
+            </div>
+          </div>
+        </div>
+        <div class="menu-icon">
+          <img src="images/menu-slot-icon.svg" alt="" />
+        </div>
+        <span class="menu-text">Slots</span>
+      </div>
+      <div class="menu-item item-sett navigate" data-page="settings">
+        <div class="menu-item-act-shadov">
+          <div class="menu-icon-act">
+            <div class="menu-icon-act-img">
+              <img src="images/menu-setting-activ-icon.svg" alt="Tap Game" />
+            </div>
+          </div>
+        </div>
+        <div class="menu-icon">
+          <img src="images/menu-setting-icon.svg" alt="" />
+        </div>
+        <span class="menu-text">Settings</span>
+      </div>
+      <div class="menu-item item-wall navigate" data-page="wallet">
+        <div class="menu-item-act-shadov">
+          <div class="menu-icon-act">
+            <div class="menu-icon-act-img">
+              <img src="images/menu-wallet-activ-icon.svg" alt="Tap Game" />
+            </div>
+          </div>
+        </div>
+        <div class="menu-icon">
+          <img src="images/menu-wallet-icon.svg" alt="" />
+        </div>
+        <span class="menu-text">Wallet</span>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+  const menu = document.querySelector(".footer-menu");
+  const itemsAct = document.querySelectorAll(".menu-icon-act");
+  const itemsShado = document.querySelectorAll(".menu-item-act-shadov");
+  const icons = document.querySelectorAll(".menu-icon");
+
+  menu.addEventListener("click", (e) => {
+    const menuItem = e.target.closest(".menu-item");
+    if (!menuItem) return;
+    const actItemSadow = menuItem.querySelector(".menu-item-act-shadov");
+    const actItem = actItemSadow.querySelector(".menu-icon-act");
+    const actIcon = menuItem.querySelector(".menu-icon");
+    itemsAct.forEach((el) => {
+      el.classList.remove("menu-item-act-show");
+    });
+    itemsShado.forEach((el) => {
+      el.classList.remove("menu-item-act-shadov-show");
+    });
+
+    icons.forEach((el) => {
+      el.classList.remove("menu-icon-show");
+    });
+
+    actItem.classList.add("menu-item-act-show");
+    actItemSadow.classList.add("menu-item-act-shadov-show");
+    actIcon.classList.add("menu-icon-show");
+  });
+</script>
