@@ -2,13 +2,13 @@ const animationPool = [];
 const poolSize = 15;
 let animationContainer;
 const colors = [
-    'rgba(255, 0, 0, 0.7)',  // Red
-    'rgba(0, 255, 0, 0.7)',  // Green
-    'rgba(0, 0, 255, 0.7)',  // Blue
-    'rgba(255, 255, 0, 0.7)', // Yellow
-    'rgba(0, 255, 255, 0.7)', // Cyan
-    'rgba(255, 0, 255, 0.7)', // Magenta
-    'rgba(255, 255, 255, 0.7)' // White
+    'rgba(255, 215, 0, 0.7)',   // Gold
+    'rgba(255, 223, 56, 0.7)',  // Goldenrod
+    'rgba(255, 242, 0, 0.7)',   // Bright Yellow
+    'rgba(255, 228, 181, 0.7)', // Light Gold
+    'rgba(255, 250, 205, 0.7)', // Lemon Chiffon
+    'rgba(255, 239, 0, 0.7)',   // Yellow Gold
+    'rgba(255, 255, 153, 0.7)'  // Pale Yellow
 ];
 
 export function init(entity) {

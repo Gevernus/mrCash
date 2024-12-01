@@ -80,21 +80,34 @@ async function initApp() {
     systemManager.initAll();
 
     let currentLink = document.querySelector('.active');
+
     document.querySelectorAll('.navigate').forEach(link => {
         link.addEventListener('click', (e) => {
             e.preventDefault();
             if (currentLink) {
                 currentLink.classList.remove('active');
+                const actItemSadow = currentLink.querySelector(".menu-item-act-shadov");
+                const actItem = actItemSadow.querySelector(".menu-icon-act");
+                const actIcon = currentLink.querySelector(".menu-icon");
+                actItem.classList.remove("menu-item-act-show");
+                actItemSadow.classList.remove("menu-item-act-shadov-show");
+                actIcon.classList.remove("menu-icon-show");
             }
 
             // Add active class to the clicked link
             e.currentTarget.classList.add('active');
-
             // Update the currentLink
             currentLink = e.currentTarget;
+            const actItemSadow = currentLink.querySelector(".menu-item-act-shadov");
+            const actItem = actItemSadow.querySelector(".menu-icon-act");
+            const actIcon = currentLink.querySelector(".menu-icon");
+            actItem.classList.add("menu-item-act-show");
+            actItemSadow.classList.add("menu-item-act-shadov-show");
+            actIcon.classList.add("menu-icon-show");
+
             console.log('Nav link clicked');
             inputComponent.addInput("vibrate");
-            uiSystem.setView(e.currentTarget.dataset.page || 'home');
+            inputComponent.addInput("setView", { view: e.currentTarget.dataset.page });
         });
     });
 
