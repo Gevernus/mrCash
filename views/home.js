@@ -134,30 +134,32 @@ function showClickAnimation(x, y, count, color) {
 }
 
 export function render(entity) {
-    // const levelComponent = entity.getComponent("LevelComponent");
-    // const energyComponent = entity.getComponent("EnergyComponent");
-    // const coinsComponent = entity.getComponent("CoinsComponent");
-    // const passiveIncomeComponent = entity.getComponent("PassiveIncomeComponent");
-    // const configComponent = entity.getComponent("ConfigComponent");
-    // const skinsComponent = entity.getComponent("SkinsComponent");
-    // const config = configComponent.config;
+    const energyComponent = entity.getComponent("EnergyComponent");
+    const coinsComponent = entity.getComponent("CoinsComponent");
+    const passiveIncomeComponent = entity.getComponent("PassiveIncomeComponent");
+    const clickPowerComponent = entity.getComponent('ClickPowerComponent');
 
+    document.getElementById('energy-value').textContent = `${Math.floor(energyComponent.energy)}`;
+    document.getElementById('energy-total').textContent = `${Math.floor(energyComponent.maxEnergy)}`;
+    document.getElementById('coins-value').textContent = Math.floor(coinsComponent.amount);
+    let value = passiveIncomeComponent.incomePerHour;
+    let measuredValue, measure;
 
-    // document.getElementById('level').textContent = levelComponent.level;
-    // document.getElementById('energy').textContent = `${Math.floor(energyComponent.energy)}/${Math.floor(energyComponent.maxEnergy)}`;
+    if (value < 1000) {
+        measuredValue = value;
+        measure = '';
+    } else if (value >= 1000 && value < 1000000) {
+        measuredValue = value / 1000;
+        measure = 'K';
+    } else {
+        measuredValue = value / 1000000;
+        measure = 'M';
+    }
 
-    // document.getElementById('coins').textContent = Math.floor(coinsComponent.amount);
-    // document.getElementById('passiveIncome').textContent = passiveIncomeComponent.incomePerHour.toFixed(1);
+    document.getElementById('profit-hour-value').textContent = measuredValue.toFixed(1);
+    document.getElementById('profit-hour-measure').textContent = measure;
+    document.getElementById('profit-tap-value').textContent = clickPowerComponent.power;
 
-    // if (skinsComponent.currentBackSkin) {
-    //     document.body.style.backgroundImage = `url(/images/skins/${skinsComponent.currentBackSkin.image})`;
-    // } else {
-    //     document.body.style.backgroundImage = `url(/images/${config.images[levelComponent.level - 1]})`;
-    // }
-
-    // if (skinsComponent.currentTapSkin) {
-    //     document.getElementById('tap-button').style.backgroundImage = `url(images/skins/${skinsComponent.currentTapSkin.image})`;
-    // }
     // document.body.style.backgroundSize = `cover`;
     // document.body.style.backgroundPosition = 'center';
 };

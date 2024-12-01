@@ -230,6 +230,19 @@
       transition: transform 0.5s ease-out, opacity 0.2s ease-out;
     }
 
+    .menu-item-act-shadov::after {
+      content: "";
+      position: absolute;
+      bottom: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 0;
+      height: 0;
+      border-left: 10px solid transparent;
+      border-right: 10px solid transparent;
+      border-top: 10px solid #555;
+    }
+
     .menu-icon-act-img {
       width: 5vw;
     }
@@ -291,7 +304,7 @@
           <div class="profit-hour-text">
             <span>+</span>
             <span id="profit-hour-value">1.5</span>
-            <span>M</span>
+            <span id="profit-hour-measure">M</span>
           </div>
           <div class="profit-hour-img">
             <img src="images/profit-info.svg" alt="info" />
@@ -307,9 +320,9 @@
         <div class="info-energy-img">
           <img src="images/energy-icon.svg" alt="Energy icon" />
         </div>
-        <span id="energy-total">6500</span>
-        <span>/</span>
         <span id="energy-value">6500</span>
+        <span>/</span>
+        <span id="energy-total">6500</span>
       </div>
       <div id="shop-btn" class="navigate" data-page="shop">
         <div class="shop-btn-img">
@@ -324,10 +337,7 @@
           <div class="menu-item-act-shadov menu-item-act-shadov-show">
             <div class="menu-icon-act menu-item-act-show">
               <div class="menu-icon-act-img">
-                <img
-                  src="images/menu-tap-activ-icon.svg"
-                  alt="Tap Game"
-                />
+                <img src="images/menu-tap-activ-icon.svg" alt="Tap Game" />
               </div>
             </div>
           </div>
@@ -340,10 +350,7 @@
           <div class="menu-item-act-shadov">
             <div class="menu-icon-act">
               <div class="menu-icon-act-img">
-                <img
-                  src="images/menu-prof-activ-icon.svg"
-                  alt="Tap Game"
-                />
+                <img src="images/menu-prof-activ-icon.svg" alt="Tap Game" />
               </div>
             </div>
           </div>
@@ -356,10 +363,7 @@
           <div class="menu-item-act-shadov">
             <div class="menu-icon-act">
               <div class="menu-icon-act-img">
-                <img
-                  src="images/menu-slot-activ-icon.svg"
-                  alt="Tap Game"
-                />
+                <img src="images/menu-slot-activ-icon.svg" alt="Tap Game" />
               </div>
             </div>
           </div>
@@ -372,10 +376,7 @@
           <div class="menu-item-act-shadov">
             <div class="menu-icon-act">
               <div class="menu-icon-act-img">
-                <img
-                  src="images/menu-setting-activ-icon.svg"
-                  alt="Tap Game"
-                />
+                <img src="images/menu-setting-activ-icon.svg" alt="Tap Game" />
               </div>
             </div>
           </div>
@@ -388,10 +389,7 @@
           <div class="menu-item-act-shadov">
             <div class="menu-icon-act">
               <div class="menu-icon-act-img">
-                <img
-                  src="images/menu-wallet-activ-icon.svg"
-                  alt="Tap Game"
-                />
+                <img src="images/menu-wallet-activ-icon.svg" alt="Tap Game" />
               </div>
             </div>
           </div>
