@@ -1,8 +1,8 @@
 {
-  "name": "tapslots",
+  "name": "mrCash",
   "version": "1.0.0",
   "type": "commonjs",
-  "description": "Tapslots Game",
+  "description": "mrCash",
   "scripts": {
     "build": "tsc",
     "start": "node dist/app.js",

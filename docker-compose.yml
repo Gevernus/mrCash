@@ -1,0 +1,65 @@
+services:
+  postgres:
+    image: postgres:15-alpine
+    environment:
+      - POSTGRES_DB=cash
+      - POSTGRES_USER=Admin
+      - POSTGRES_PASSWORD=Grove312666$
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    networks:
+      - cash-network
+    ports:
+      - "19582:5432"
+    restart: unless-stopped
+  app:
+    build: .
+    ports:
+      - "3000:3000"
+      - "8000:8000"
+    environment:
+      - DB_HOST=postgres
+      - DB_PORT=5432
+      - DB_DATABASE=cash
+      - DB_USERNAME=Admin
+      - DB_PASSWORD=Grove312666$
+    networks:
+      - cash-network
+    depends_on:
+      - postgres
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.app.rule=Host(`mr-cash.fun`)"
+      - "traefik.http.routers.app.entrypoints=websecure"
+      - "traefik.http.routers.app.tls=true"
+      - "traefik.http.routers.app.tls.certresolver=myresolver"
+      - "traefik.http.services.app.loadbalancer.server.port=8000"
+
+  traefik:
+    image: traefik:v2.9
+    command:
+      - "--api.insecure=true" # Remove or secure in production
+      - "--providers.docker=true"
+      - "--entrypoints.web.address=:80"
+      - "--entrypoints.websecure.address=:443"
+      - "--certificatesresolvers.myresolver.acme.tlschallenge=true"
+      - "--certificatesresolvers.myresolver.acme.email=gevernus@mail.ru"
+      - "--certificatesresolvers.myresolver.acme.storage=/letsencrypt/acme.json"
+    ports:
+      - "80:80"
+      - "443:443"
+      - "8080:8080" # Traefik dashboard
+    volumes:
+      - "/var/run/docker.sock:/var/run/docker.sock:ro"
+      - "./traefik/letsencrypt:/letsencrypt"
+    networks:
+      - cash-network
+    restart: always
+
+networks:
+  cash-network:
+    driver: bridge
+
+volumes:
+  pgdata:
+  traefik:
