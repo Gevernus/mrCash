@@ -12,6 +12,7 @@ services:
     ports:
       - "19582:5432"
     restart: unless-stopped
+
   app:
     build: .
     ports:
@@ -29,38 +30,58 @@ services:
       - postgres
     labels:
       - "traefik.enable=true"
-      # HTTP Router
+      # HTTP Router (redirect to HTTPS)
       - "traefik.http.routers.app.rule=Host(`mr-cash.fun`)"
       - "traefik.http.routers.app.entrypoints=web"
-      - "traefik.http.middlewares.redirect-to-https.redirectscheme.scheme=https"
       - "traefik.http.routers.app.middlewares=redirect-to-https"
+      
       # HTTPS Router
       - "traefik.http.routers.app-secure.rule=Host(`mr-cash.fun`)"
       - "traefik.http.routers.app-secure.entrypoints=websecure"
       - "traefik.http.routers.app-secure.tls=true"
       - "traefik.http.routers.app-secure.tls.certresolver=myresolver"
-      # Service
+      
+      # Middleware for HTTPS redirect
+      - "traefik.http.middlewares.redirect-to-https.redirectscheme.scheme=https"
+      
+      # Service configuration
       - "traefik.http.services.app.loadbalancer.server.port=8000"
 
   traefik:
     image: traefik:v2.9
     command:
-      - "--api.insecure=true" # Remove or secure in production
+      # Enable API (secured in production)
+      - "--api.insecure=true"
+      
+      # Docker provider
       - "--providers.docker=true"
+      - "--providers.docker.exposedbydefault=false"
+      
+      # Entrypoints
       - "--entrypoints.web.address=:80"
       - "--entrypoints.websecure.address=:443"
-      - "--certificatesresolvers.myresolver.acme.tlschallenge=true"
+      
+      # ACME (Let's Encrypt) Configuration
+      - "--certificatesresolvers.myresolver.acme.httpchallenge=true"
+      - "--certificatesresolvers.myresolver.acme.httpchallenge.entrypoint=web"
       - "--certificatesresolvers.myresolver.acme.email=gevernus@mail.ru"
       - "--certificatesresolvers.myresolver.acme.storage=/letsencrypt/acme.json"
+      
+      # Optional: Use staging server for testing
+      - "--certificatesresolvers.myresolver.acme.caserver=https://acme-staging-v02.api.letsencrypt.org/directory"
+    
     ports:
       - "80:80"
       - "443:443"
-      - "8080:8080" # Traefik dashboard
+      - "8080:8080"  # Traefik dashboard
+    
     volumes:
       - "/var/run/docker.sock:/var/run/docker.sock:ro"
       - "./traefik/letsencrypt:/letsencrypt"
+    
     networks:
       - cash-network
+    
     restart: always
 
 networks:
@@ -69,4 +90,3 @@ networks:
 
 volumes:
   pgdata:
-  traefik:
