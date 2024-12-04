@@ -32,11 +32,11 @@ export function init(entity) {
     } else {
         console.error('Tap button or container not found');
     }
-    // if (skinsComponent.currentBackSkin) {
-    //     document.body.style.backgroundImage = `url(/images/skins/${skinsComponent.currentBackSkin.image})`;
-    // } else {
-    //     document.body.style.backgroundImage = `url(/images/${config.images[levelComponent.level - 1]})`;
-    // }
+    if (skinsComponent.currentBackSkin) {
+        document.body.style.backgroundImage = `url(/images/skins/${skinsComponent.currentBackSkin.image})`;
+    } else {
+        document.body.style.backgroundColor = `#1a191a`;
+    }
 
     // if (skinsComponent.currentTapSkin) {
     //     tapButton.style.backgroundImage = `url(images/skins/${skinsComponent.currentTapSkin.image})`;
