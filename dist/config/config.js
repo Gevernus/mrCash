@@ -30,13 +30,13 @@ exports.config = {
         1000000000
     ],
     images: [
-        'background.webp',
-        'background.webp',
-        'background.webp',
-        'background.webp',
-        'background.webp',
-        'background.webp',
-        'background.webp'
+        'home-bg.svg',
+        'home-bg.svg',
+        'home-bg.svg',
+        'home-bg.svg',
+        'home-bg.svg',
+        'home-bg.svg',
+        'home-bg.svg'
     ],
     cardConfigs: {
         ["Common"]: {

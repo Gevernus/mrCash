@@ -47,13 +47,13 @@ export const config: GameConfig = {
     ],
 
     images: [
-        'background.webp',
-        'background.webp',
-        'background.webp',
-        'background.webp',
-        'background.webp',
-        'background.webp',
-        'background.webp'
+        'home-bg.svg',
+        'home-bg.svg',
+        'home-bg.svg',
+        'home-bg.svg',
+        'home-bg.svg',
+        'home-bg.svg',
+        'home-bg.svg'
     ],
 
     cardConfigs: {

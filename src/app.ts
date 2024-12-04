@@ -81,25 +81,55 @@ AppDataSource.initialize().then(async () => {
         const filePath = path.join(__dirname, '../views', fileName);
 
         try {
-            // Check if file exists
+            // Check if the file exists
             await access(filePath);
 
             // Determine the MIME type
             const mimeType = mime.lookup(filePath) || 'application/octet-stream';
 
-            // Set the correct Content-Type
-            res.type(mimeType);
+            if (mimeType === 'text/html') {
+                // Read the HTML content
+                let htmlContent = fs.readFileSync(filePath, 'utf8');
 
-            // Send the file
-            res.sendFile(filePath);
+                // Match all <img> tags with .svg sources
+                const imgRegex = /<img\s+([^>]*?)src=["']([^"']+\.svg)["']([^>]*)>/g;
+                let match;
+
+                while ((match = imgRegex.exec(htmlContent)) !== null) {
+                    const fullMatch = match[0]; // The entire <img> tag
+                    const attributesBeforeSrc = match[1]; // Attributes before `src`
+                    const svgPath = path.join(__dirname, '../public', match[2]); // Path to the SVG file
+                    const attributesAfterSrc = match[3]; // Attributes after `src`
+
+                    if (fs.existsSync(svgPath)) {
+                        // Read the SVG content
+                        const svgContent = fs.readFileSync(svgPath, 'utf8');
+
+                        // Wrap the inline SVG inside a new parent <div> or reuse the <img> tag
+                        const wrappedSvg = `
+                        <div ${attributesBeforeSrc} ${attributesAfterSrc} style="display: inline-block;">
+                            ${svgContent}
+                        </div>`;
+
+                        // Replace the <img> tag with the wrapped SVG
+                        htmlContent = htmlContent.replace(fullMatch, wrappedSvg);
+                    } else {
+                        console.warn(`SVG file not found: ${svgPath}`);
+                    }
+                }
+
+                // Send the modified HTML content
+                res.type('text/html').send(htmlContent);
+            } else {
+                // For non-HTML files, send them as-is
+                res.type(mimeType).sendFile(filePath);
+            }
         } catch (error: unknown) {
             console.error(`Error serving file ${fileName}:`, error);
 
             if (error instanceof Error && 'code' in error && error.code === 'ENOENT') {
-                // ENOENT error code means "Error NO ENTry" or "Error NO ENTity", which indicates that the file or directory doesn't exist
                 res.status(404).send('File not found');
             } else {
-                // For any other error, send a 500 Internal Server Error
                 res.status(500).send('Internal Server Error');
             }
         }
@@ -109,19 +139,55 @@ AppDataSource.initialize().then(async () => {
     app.use(express.static(path.join(__dirname, '../public')));
     app.use(express.static(path.join(__dirname, '../dist')));
 
-    // HTML file routes
-    const viewsDir = path.join(__dirname, '../views');
-    const htmlFiles = fs.readdirSync(viewsDir).filter((file: string) => file.endsWith('.html'));
-    htmlFiles.forEach((file: string) => {
-        console.log(`/${path.parse(file).name}`);
-        app.get(`/${path.parse(file).name}`, (req, res) => {
-            res.sendFile(path.join(viewsDir, file));
-        });
-    });
-
     // Catch-all route (should be last)
-    app.get('*', (req, res) => {
-        res.sendFile(path.join(__dirname, '../views', 'index.html'));
+    app.get('*', async (req, res) => {
+        const filePath = path.join(__dirname, '../views', 'index.html');
+
+        try {
+            // Check if the file exists
+            await access(filePath);
+
+            // Read the HTML content
+            let htmlContent = fs.readFileSync(filePath, 'utf8');
+
+            // Match all <img> tags with .svg sources
+            const imgRegex = /<img\s+([^>]*?)src=["']([^"']+\.svg)["']([^>]*)>/g;
+            let match;
+
+            while ((match = imgRegex.exec(htmlContent)) !== null) {
+                const fullMatch = match[0]; // The entire <img> tag
+                const attributesBeforeSrc = match[1]; // Attributes before `src`
+                const svgPath = path.join(__dirname, '../public', match[2]); // Path to the SVG file
+                const attributesAfterSrc = match[3]; // Attributes after `src`
+
+                if (fs.existsSync(svgPath)) {
+                    // Read the SVG content
+                    const svgContent = fs.readFileSync(svgPath, 'utf8');
+
+                    // Wrap the inline SVG inside a <div> or reuse the <img> tag
+                    const wrappedSvg = `
+                    <div ${attributesBeforeSrc} ${attributesAfterSrc} style="display: inline-block; width:100%; height: 100%">
+                        ${svgContent}
+                    </div>`;
+
+                    // Replace the <img> tag with the wrapped SVG
+                    htmlContent = htmlContent.replace(fullMatch, wrappedSvg);
+                } else {
+                    console.warn(`SVG file not found: ${svgPath}`);
+                }
+            }
+
+            // Send the modified HTML content
+            res.type('text/html').send(htmlContent);
+        } catch (error) {
+            console.error(`Error serving index.html:`, error);
+
+            if (error instanceof Error && 'code' in error && error.code === 'ENOENT') {
+                res.status(404).send('Index file not found');
+            } else {
+                res.status(500).send('Internal Server Error');
+            }
+        }
     });
 
     app.use((err: any, req: express.Request, res: express.Response, next: express.NextFunction) => {
