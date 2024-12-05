@@ -271,6 +271,214 @@
     .menu-icon {
       width: 5.6vw;
     }
+
+    /* ================================= */
+
+    .modal-profit {
+      display: none;
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: 10;
+      width: 100%;
+      height: 100%;
+      background: #3e3f4185;
+    }
+
+    .modal-profit.visibiliti {
+      display: block;
+    }
+
+    #modal-profit-close {
+      position: absolute;
+      top: 0;
+      right: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 2vh;
+      border-radius: 10vh;
+
+      width: 3.5vh;
+      height: 3.5vh;
+      background: rgba(255, 255, 255, 0.32);
+    }
+
+    .profit-close-img {
+      width: 1.3vh;
+    }
+
+    .modal-profit-container {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      border-top: 0.4vh solid #ffd700;
+      border-radius: 5vh 5vh 0 0;
+      padding: 7.4vh 2vh 5vh 2vh;
+      /* width: 428px;
+      height: 438px; */
+      box-shadow: 0 0 20px 0 #ffd700;
+      background: #1c1c1c;
+    }
+
+    .modal-profit-logo {
+      position: absolute;
+      top: 0;
+      left: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transform: translate(-50%, -50%);
+      border: 0.6vh solid #1c1f24;
+      border-radius: 10vh;
+
+      width: 8.4vh;
+      height: 8.4vh;
+      background: #2c2c2c;
+    }
+
+    .modal-profit-img {
+      width: 4.7vh;
+    }
+
+    .modal-profit-wrapper {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 2vh;
+      margin-bottom: 2vh;
+      border-radius: 2vh;
+      padding: 5.9vh 3vh 3vh 3vh;
+      /* width: 396px; */
+      /* height: 258px; */
+      background: #2c2c2c;
+      font-family: "Roboto", sans-serif;
+    }
+
+    .modal-profit-title {
+      font-weight: 700;
+      font-size: 7.5vw;
+      line-height: 1.16;
+      letter-spacing: 0.01em;
+      text-align: center;
+      color: #fffefd;
+    }
+
+    .modal-profit-subtitle {
+      font-weight: 400;
+      font-size: 3.3vw;
+      line-height: 1.43;
+      letter-spacing: 0.02em;
+      text-align: center;
+      color: #fff;
+    }
+
+    .modal-profit-descr {
+      font-weight: 400;
+      font-size: 3.8vw;
+      line-height: 1.25;
+      letter-spacing: 0.02em;
+      text-align: center;
+      color: #fff;
+    }
+
+    .modal-profit-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 3.8vw;
+      /* padding: 20px 0px; */
+      /* width: 396px; */
+      height: 7.9vh;
+      box-shadow: 0 1.2vh 7.4vh 0 rgba(174, 113, 41, 0.8),
+        0 2.5vh 7.4vh 0 rgba(232, 205, 110, 0.2),
+        -2.5vh -2.5vh 6.2vh 0 rgba(211, 70, 155, 0.4),
+        inset 0 0 2.5vh 0 rgba(255, 255, 255, 0.6);
+      background: radial-gradient(
+          178.09% 220.16% at 94.89% -132.81%,
+          #ff7a00 67.59%,
+          rgba(255, 199, 0, 0.38) 100%
+        ),
+        radial-gradient(
+          137.51% 118.3% at 32.95% 0%,
+          rgba(255, 137, 137, 0.92) 21.25%,
+          rgba(255, 169, 106, 0.57) 88.62%
+        ),
+        radial-gradient(
+          182.56% 55.34% at 5.68% 100%,
+          rgba(246, 251, 34, 0.51) 0%,
+          rgba(255, 158, 69, 0) 100%
+        ),
+        radial-gradient(
+          238.39% 44.19% at 96.59% 31.25%,
+          #fff 0%,
+          rgba(255, 255, 255, 0) 100%
+        );
+      font-weight: 500;
+      font-size: 4.2vw;
+      line-height: 1.33;
+      letter-spacing: 0.07em;
+      color: #fff;
+      text-shadow: 0 0 4px rgba(0, 0, 0, 0.25);
+    }
+
+    .modal-info {
+      display: none;
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: 10;
+      width: 100%;
+      height: 100%;
+      background: #3e3f4185;
+    }
+
+    .modal-info.visibiliti {
+      display: block;
+    }
+
+    #modal-info-close {
+      position: absolute;
+      top: 0;
+      right: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 2vh;
+      border-radius: 10vh;
+
+      width: 3.5vh;
+      height: 3.5vh;
+      background: rgba(255, 255, 255, 0.32);
+    }
+
+    .modal-info-title {
+      font-weight: 700;
+      font-size: 11.2vw;
+      line-height: 1.5;
+      letter-spacing: 0.01em;
+      color: #fffefd;
+    }
+    .modal-info-subtitle {
+      font-weight: 700;
+      font-size: 4.7vw;
+      line-height: 1.5;
+      letter-spacing: 0.01em;
+      text-align: center;
+      color: #fff;
+    }
+    .modal-info-img {
+      width: 9vh;
+    }
+    .modal-info-inner {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1vh;
+    }
   </style>
 </head>
 <div id="home-content">
@@ -330,6 +538,55 @@
         </div>
         <span>Магазин</span>
       </div>
-    </div>    
+    </div>
+  </div>
+  <div class="modal-profit">
+    <div class="modal-profit-container">
+      <div id="modal-profit-close">
+        <div class="profit-close-img">
+          <img src="images/modal-close.svg" alt="close" />
+        </div>
+      </div>
+      <div class="modal-profit-wrapper">
+        <div class="modal-profit-logo">
+          <div class="modal-profit-img">
+            <img src="images/shop-item-icon.svg" alt="logo" />
+          </div>
+        </div>
+        <span class="modal-profit-title">Увеличьте вашу прибыль</span>
+        <span class="modal-profit-subtitle"
+          >Перейдите в магазин карточек и купите улучшения для вашего бизнеса,
+          чтобы увеличить прибыль</span
+        >
+        <span class="modal-profit-descr"
+          >Зарабатывайте в оффлайне в течение 3 часов</span
+        >
+      </div>
+      <div class="modal-profit-btn">Перейти в магазин</div>
+    </div>
+  </div>
+  <div class="modal-info visibiliti">
+    <div class="modal-profit-container">
+      <div id="modal-info-close">
+        <div class="profit-close-img">
+          <img src="images/modal-close.svg" alt="close" />
+        </div>
+      </div>
+      <div class="modal-profit-wrapper">
+        <div class="modal-profit-logo">
+          <div class="modal-profit-img">
+            <img src="images/shop-item-icon.svg" alt="logo" />
+          </div>
+        </div>
+        <div class="modal-info-inner">
+          <div class="modal-info-img">
+            <img src="images/coin-40.svg" alt="coin" />
+          </div>
+          <span class="modal-info-title">123.09K</span>
+        </div>
+        <span class="modal-info-subtitle">Бизнес начал работать на Вас</span>
+      </div>
+      <div class="modal-profit-btn">Спасибо, Mr Cash</div>
+    </div>
   </div>
 </div>
