@@ -21,6 +21,86 @@ const app = express();
 const port = process.env.PORT || 8000;
 export const bot = new Bot(process.env.TELEGRAM_TOKEN || "");
 
+interface ViewCache {
+    [fileName: string]: string;
+}
+
+class ViewPreprocessor {
+    private viewCache: ViewCache = {};
+    private viewsDirectory: string;
+
+    constructor(viewsDirectory: string) {
+        this.viewsDirectory = viewsDirectory;
+    }
+
+    preprocessViews() {
+        const start = performance.now();
+        console.log('Starting view preprocessing...');
+
+        try {
+            // Read all files in the views directory
+            const files = fs.readdirSync(this.viewsDirectory);
+
+            files.forEach(fileName => {
+                const filePath = path.join(this.viewsDirectory, fileName);
+
+                // Check if it's a file and has .html extension
+                if (fs.statSync(filePath).isFile() && path.extname(fileName) === '.html') {
+                    try {
+                        // Read the HTML content
+                        let htmlContent = fs.readFileSync(filePath, 'utf8');
+
+                        // Match all <img> tags with .svg sources
+                        const imgRegex = /<img\s+([^>]*?)src=["']([^"']+\.svg)["']([^>]*)>/g;
+                        let match;
+
+                        while ((match = imgRegex.exec(htmlContent)) !== null) {
+                            const fullMatch = match[0];
+                            const attributesBeforeSrc = match[1];
+                            const svgPath = path.join(process.cwd(), 'public', match[2]);
+                            const attributesAfterSrc = match[3];
+
+                            if (fs.existsSync(svgPath)) {
+                                // Read the SVG content
+                                const svgContent = fs.readFileSync(svgPath, 'utf8');
+
+                                // Wrap the inline SVG inside a new parent <div>
+                                const wrappedSvg = `
+                                <div ${attributesBeforeSrc} ${attributesAfterSrc} style="display: inline-block;">
+                                    ${svgContent}
+                                </div>`;
+
+                                // Replace the <img> tag with the wrapped SVG
+                                htmlContent = htmlContent.replace(fullMatch, wrappedSvg);
+                            } else {
+                                console.warn(`SVG file not found: ${svgPath}`);
+                            }
+                        }
+
+                        // Store preprocessed content in cache
+                        this.viewCache[fileName] = htmlContent;
+                        console.log(`Preprocessed: ${fileName}`);
+                    } catch (fileError) {
+                        console.error(`Error processing file ${fileName}:`, fileError);
+                    }
+                }
+            });
+
+            console.log(`View preprocessing completed in ${performance.now() - start}ms`);
+            console.log(`Total views preprocessed: ${Object.keys(this.viewCache).length}`);
+        } catch (error) {
+            console.error('Error in view preprocessing:', error);
+        }
+    }
+
+    getView(fileName: string) {
+        return this.viewCache[fileName];
+    }
+}
+
+const viewPreprocessor = new ViewPreprocessor(path.join(__dirname, '../views'));
+viewPreprocessor.preprocessViews();
+
 app.use(bodyParser.json());
 process.on('uncaughtException', (err) => {
     console.error('There was an uncaught error', err);
@@ -77,6 +157,8 @@ AppDataSource.initialize().then(async () => {
         }
     });
     app.get('/views/:fileName', async (req, res) => {
+        const start = performance.now();
+        console.log(`Start of request`);
         const fileName = req.params.fileName;
         const filePath = path.join(__dirname, '../views', fileName);
 
@@ -89,41 +171,18 @@ AppDataSource.initialize().then(async () => {
 
             if (mimeType === 'text/html') {
                 // Read the HTML content
-                let htmlContent = fs.readFileSync(filePath, 'utf8');
+                const preprocessedContent = viewPreprocessor.getView(fileName);
 
-                // Match all <img> tags with .svg sources
-                const imgRegex = /<img\s+([^>]*?)src=["']([^"']+\.svg)["']([^>]*)>/g;
-                let match;
-
-                while ((match = imgRegex.exec(htmlContent)) !== null) {
-                    const fullMatch = match[0]; // The entire <img> tag
-                    const attributesBeforeSrc = match[1]; // Attributes before `src`
-                    const svgPath = path.join(__dirname, '../public', match[2]); // Path to the SVG file
-                    const attributesAfterSrc = match[3]; // Attributes after `src`
-
-                    if (fs.existsSync(svgPath)) {
-                        // Read the SVG content
-                        const svgContent = fs.readFileSync(svgPath, 'utf8');
-
-                        // Wrap the inline SVG inside a new parent <div> or reuse the <img> tag
-                        const wrappedSvg = `
-                        <div ${attributesBeforeSrc} ${attributesAfterSrc} style="display: inline-block;">
-                            ${svgContent}
-                        </div>`;
-
-                        // Replace the <img> tag with the wrapped SVG
-                        htmlContent = htmlContent.replace(fullMatch, wrappedSvg);
-                    } else {
-                        console.warn(`SVG file not found: ${svgPath}`);
-                    }
+                if (preprocessedContent) {
+                    console.log(`Send of html: ${performance.now() - start}`);
+                    return res.type('text/html').send(preprocessedContent);
                 }
-
-                // Send the modified HTML content
-                res.type('text/html').send(htmlContent);
             } else {
                 // For non-HTML files, send them as-is
+                console.log(`Send of not html: ${performance.now() - start}`);
                 res.type(mimeType).sendFile(filePath);
             }
+            console.log(`End of response: ${performance.now() - start}`);
         } catch (error: unknown) {
             console.error(`Error serving file ${fileName}:`, error);
 
@@ -141,44 +200,12 @@ AppDataSource.initialize().then(async () => {
 
     // Catch-all route (should be last)
     app.get('*', async (req, res) => {
-        const filePath = path.join(__dirname, '../views', 'index.html');
-
         try {
-            // Check if the file exists
-            await access(filePath);
+            const preprocessedContent = viewPreprocessor.getView('index.html');
 
-            // Read the HTML content
-            let htmlContent = fs.readFileSync(filePath, 'utf8');
-
-            // Match all <img> tags with .svg sources
-            const imgRegex = /<img\s+([^>]*?)src=["']([^"']+\.svg)["']([^>]*)>/g;
-            let match;
-
-            while ((match = imgRegex.exec(htmlContent)) !== null) {
-                const fullMatch = match[0]; // The entire <img> tag
-                const attributesBeforeSrc = match[1]; // Attributes before `src`
-                const svgPath = path.join(__dirname, '../public', match[2]); // Path to the SVG file
-                const attributesAfterSrc = match[3]; // Attributes after `src`
-
-                if (fs.existsSync(svgPath)) {
-                    // Read the SVG content
-                    const svgContent = fs.readFileSync(svgPath, 'utf8');
-
-                    // Wrap the inline SVG inside a <div> or reuse the <img> tag
-                    const wrappedSvg = `
-                    <div ${attributesBeforeSrc} ${attributesAfterSrc} style="display: inline-block; width:100%; height: 100%">
-                        ${svgContent}
-                    </div>`;
-
-                    // Replace the <img> tag with the wrapped SVG
-                    htmlContent = htmlContent.replace(fullMatch, wrappedSvg);
-                } else {
-                    console.warn(`SVG file not found: ${svgPath}`);
-                }
+            if (preprocessedContent) {
+                return res.type('text/html').send(preprocessedContent);
             }
-
-            // Send the modified HTML content
-            res.type('text/html').send(htmlContent);
         } catch (error) {
             console.error(`Error serving index.html:`, error);
 

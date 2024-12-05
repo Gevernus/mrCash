@@ -4,6 +4,25 @@ export class CoinsComponent {
     }
 }
 
+export class MeasureComponent {
+    constructor() {
+        this.startTime = null; 
+    }
+
+    // Start measuring time
+    start() {
+        this.startTime = performance.now();
+    }
+
+    // Get the elapsed time in milliseconds
+    elapsedTime() {
+        if (this.startTime === null) {
+            throw new Error("Timer has not been started. Call start() before checking elapsed time.");
+        }
+        return performance.now() - this.startTime; // Return the difference
+    }
+}
+
 export class ClickPowerComponent {
     constructor(items = [], monsters = []) {
         this.calculate(items, monsters);
@@ -306,18 +325,21 @@ export class ViewComponent {
         this.logic = null;
     }
 
-    async load() {
+    async load(entity) {
         try {
+            console.log(`Start of view loading: ${entity.getComponent(MeasureComponent).elapsedTime()}`);
             // Load HTML template
             const htmlResponse = await fetch(`/views/${this.name}.html`);
             if (!htmlResponse.ok) {
                 throw new Error(`Failed to load HTML for ${this.name}. Status: ${htmlResponse.status}`);
             }
+            console.log(`Got response: ${entity.getComponent(MeasureComponent).elapsedTime()}`);
             this.template = await htmlResponse.text();
-
+            console.log(`Text loaded: ${entity.getComponent(MeasureComponent).elapsedTime()}`);
             // Load JavaScript logic
             // const jsResponse = await fetch(`/views/${this.name}.js`);
             this.logic = await import(`/views/${this.name}.js`);
+            console.log(`Logic imported: ${entity.getComponent(MeasureComponent).elapsedTime()}`);
             if (typeof this.logic.init !== 'function' || typeof this.logic.render !== 'function') {
                 throw new Error(`View ${this.name} must export init and render functions`, this.logic);
             }

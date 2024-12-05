@@ -44,6 +44,7 @@ export function init(entity) {
     let currentLink = document.querySelector('.active');
     document.querySelectorAll('.navigate').forEach(link => {
         link.addEventListener('click', (e) => {
+            
             e.preventDefault();
             if (currentLink) {
                 currentLink.classList.remove('active');

@@ -499,7 +499,7 @@ export class UISystem extends System {
     async loadView(viewName) {
         if (!this.views[viewName]) {
             const view = new ViewComponent(viewName);
-            await view.load();
+            await view.load(this.entity);
             this.views[viewName] = view;
         }
         return this.views[viewName];

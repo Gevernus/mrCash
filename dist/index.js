@@ -1,7 +1,7 @@
 import { ClickSystem, PassiveIncomeSystem, LevelUpSystem, StorageSystem, TelegramSystem, UISystem, EnergySystem, PopupSystem, SoulLevelSystem, ActionsSystem } from './systems.js';
 import { SystemManager } from './systemManager.js';
 import { Entity } from './ecs.js';
-import { CoinsComponent, ClickPowerComponent, EnergyComponent, ConfigComponent, LevelComponent, PassiveIncomeComponent, InputComponent, ReferralsComponent, MonstersComponent, UserComponent, PacksComponent, RatingsComponent, TasksComponent, InventoryComponent, WildBonusComponent, WinBonusComponent, SkinsComponent } from './components.js';
+import { CoinsComponent, ClickPowerComponent, EnergyComponent, ConfigComponent, LevelComponent, PassiveIncomeComponent, InputComponent, ReferralsComponent, MonstersComponent, UserComponent, PacksComponent, RatingsComponent, TasksComponent, InventoryComponent, WildBonusComponent, WinBonusComponent, SkinsComponent, MeasureComponent } from './components.js';
 
 let lastTime = 0;
 const targetFPS = 60;
@@ -10,8 +10,9 @@ const timeStep = 1000 / targetFPS;
 const systemManager = new SystemManager();
 
 async function initApp() {
-    // eruda.init();
+    eruda.init();
     console.log('Trying to init app')
+    
     const gameEntity = new Entity();
     const inputComponent = new InputComponent();
     gameEntity.addComponent(inputComponent);
@@ -56,6 +57,7 @@ async function initApp() {
     gameEntity.addComponent(new PassiveIncomeComponent(monsterComponent.items, inventoryComponent.items, referralsComponent.items));
     gameEntity.addComponent(new ConfigComponent(config));
     gameEntity.addComponent(new UserComponent(user));
+    gameEntity.addComponent(new MeasureComponent());
     gameEntity.addComponent(new LevelComponent(state.level));
     gameEntity.addComponent(referralsComponent);
     gameEntity.addComponent(monsterComponent);
@@ -76,14 +78,15 @@ async function initApp() {
     systemManager.addSystem(new EnergySystem(gameEntity));
     systemManager.addSystem(new PopupSystem(gameEntity));
     systemManager.addSystem(new ActionsSystem(gameEntity));
-
+    gameEntity.getComponent(MeasureComponent).start();
     systemManager.initAll();
 
     let currentLink = document.querySelector('.active');
-
+    
     document.querySelectorAll('.navigate').forEach(link => {
         link.addEventListener('click', (e) => {
             e.preventDefault();
+            gameEntity.getComponent(MeasureComponent).start();
             if (currentLink) {
                 currentLink.classList.remove('active');
                 const actItemSadow = currentLink.querySelector(".menu-item-act-shadov");
@@ -108,6 +111,7 @@ async function initApp() {
             console.log('Nav link clicked');
             inputComponent.addInput("vibrate");
             inputComponent.addInput("setView", { view: e.currentTarget.dataset.page });
+            console.log(`Time to set input: ${gameEntity.getComponent(MeasureComponent).elapsedTime()}`);
         });
     });
 
