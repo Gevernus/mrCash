@@ -145,7 +145,7 @@
       align-items: center;
       flex-direction: column;
       width: 100%;
-      height: 100%;
+      /* height: 100%; */
       background: #1c1c1c;
     }
 
@@ -340,7 +340,7 @@
     .profil-tab-activ::before {
       content: "";
       position: absolute;
-      bottom: -1;
+      bottom: 0;
       right: 0;
       left: 0;
       border-radius: 0.4vh;
@@ -426,6 +426,308 @@
       letter-spacing: 0.02em;
       color: #fff;
     }
+
+    #profil-info-content-ref {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 1.5vh;
+      padding: 0 4.4vw;
+      font-family: "Roboto", sans-serif;
+    }
+
+    .content-ref-title {
+      font-weight: 700;
+      font-size: 7.5vw;
+      text-align: center;
+      line-height: 1.5;
+      letter-spacing: 0.01em;
+      color: #fffefd;
+    }
+
+    .content-ref-subtitle {
+      font-weight: 500;
+      font-size: 3.3vw;
+      line-height: 1.57;
+      letter-spacing: 0.01em;
+      text-align: center;
+      color: #fff;
+    }
+
+    .content-ref-invite {
+      display: flex;
+      align-items: center;
+      justify-content: start;
+      gap: 3.8vw;
+      border-radius: 2.4vh;
+      padding: 1vh 3.8vw;
+      width: 100%;
+      background: #2c2c2c;
+    }
+
+    .content-ref-invite-img {
+      flex-shrink: 0;
+      width: 11.2vw;
+      /* height: 11.2vw; */
+    }
+
+    .content-ref-invite-wrapper {
+      display: flex;
+      flex-direction: column;
+      align-items: start;
+    }
+
+    .content-ref-invaite-title {
+      font-weight: 500;
+      font-size: 4.2vw;
+      line-height: 1.56;
+      letter-spacing: 0.01em;
+      color: #fff;
+    }
+
+    .content-ref-invate-inner {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1.8vw;
+    }
+
+    .content-ref-invate-sep {
+      width: 1.2vw;
+      height: 1.2vw;
+      border-radius: 2vw;
+      background-color: #f4b92e;
+    }
+
+    .content-ref-invate-coin {
+      width: 4.6vw;
+      height: 4.6vw;
+    }
+
+    .content-ref-invate-value {
+      font-weight: 700;
+      font-size: 3.3vw;
+      line-height: 1.57;
+      letter-spacing: 0.01em;
+      color: #f4b92e;
+    }
+
+    .content-ref-invate-text {
+      font-weight: 400;
+      font-size: 3.3vw;
+      line-height: 2;
+      letter-spacing: 0.04em;
+      color: #ffffffa3;
+    }
+
+    #content-ref-invite-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 16px;
+      width: 100%;
+      height: 7.4vh;
+      box-shadow: 0 0.2vh 0 0 #705438;
+      background: radial-gradient(
+          178.09% 220.16% at 94.89% -132.81%,
+          #ff7a00 67.59%,
+          rgba(255, 199, 0, 0.38) 100%
+        ),
+        radial-gradient(
+          137.51% 118.3% at 32.95% 0%,
+          rgba(255, 137, 137, 0.92) 21.25%,
+          rgba(255, 169, 106, 0.57) 88.62%
+        ),
+        radial-gradient(
+          182.56% 55.34% at 5.68% 100%,
+          rgba(246, 251, 34, 0.51) 0%,
+          rgba(255, 158, 69, 0) 100%
+        ),
+        radial-gradient(
+          238.39% 44.19% at 96.59% 31.25%,
+          #fff 0%,
+          rgba(255, 255, 255, 0) 100%
+        );
+      font-weight: 600;
+      font-size: 4.7vw;
+      text-align: center;
+      color: #fff;
+    }
+
+    .content-ref-friend-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    #content-ref-friend-lists {
+    }
+
+    .content-ref-friend-title {
+      font-weight: 500;
+      font-size: 4.3vw;
+      line-height: 1.56;
+      letter-spacing: 0.01em;
+      color: #fffefd;
+    }
+
+    #content-ref-friend-icon {
+      width: 4vh;
+      height: 4vh;
+    }
+
+    .content-ref-friend {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1.8vw;
+      margin-bottom: 1.5vh;
+      border-radius: 2.5vh;
+      padding: 1vh 3.8vw;
+      width: 100%;
+      background: #2c2c2c;
+    }
+
+    .content-ref-friend-img-bg {
+      border-radius: 1.5vh;
+      padding: 1vh;
+      width: 6.9vh;
+      height: 6.9vh;
+      background: #1c1f24;
+    }
+
+    .content-ref-friend-img {
+      /* width: 40px;
+      height: 40px; */
+    }
+
+    .content-ref-friend-wrapper {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5vh;
+      margin: 0 auto 0 2vw;
+    }
+
+    .content-ref-friend-name {
+      font-weight: 400;
+      font-size: 3.3vw;
+      line-height: 1.71;
+      letter-spacing: 0.04em;
+      color: #fff;
+    }
+
+    .content-ref-friend-inner {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1.8vw;
+    }
+
+    .content-ref-friend-sep {
+      width: 1.2vw;
+      height: 1.2vw;
+      border-radius: 2vw;
+      background-color: #ffffffa3;
+    }
+
+    .content-ref-friend-coin {
+      width: 2.5vh;
+      height: 2.5vh;
+    }
+
+    .content-ref-friend-profit {
+      font-weight: 700;
+      font-size: 2.8vw;
+      line-height: 1.5;
+      letter-spacing: 0.03em;
+      color: #fff;
+    }
+
+    .content-ref-friend-total {
+      font-size: 2.8vw;
+      line-height: 1.5;
+      letter-spacing: 0.03em;
+      font-weight: 400;
+      color: #ffffffa3;
+    }
+
+    .content-ref-friend-bust {
+      font-weight: 500;
+      font-size: 3.8vw;
+      line-height: 1.5;
+      letter-spacing: 0.01em;
+      color: #fff;
+    }
+
+    .content-ref-friend-bottom {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 13vh;
+    }
+
+    #content-ref-friend-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 2vh;
+      width: 70vw;
+      height: 7.4vh;
+      box-shadow: 0 0.3vh 0 0 #705438;
+      background: radial-gradient(
+          178.09% 220.16% at 94.89% -132.81%,
+          #ff7a00 67.59%,
+          rgba(255, 199, 0, 0.38) 100%
+        ),
+        radial-gradient(
+          137.51% 118.3% at 32.95% 0%,
+          rgba(255, 137, 137, 0.92) 21.25%,
+          rgba(255, 169, 106, 0.57) 88.62%
+        ),
+        radial-gradient(
+          182.56% 55.34% at 5.68% 100%,
+          rgba(246, 251, 34, 0.51) 0%,
+          rgba(255, 158, 69, 0) 100%
+        ),
+        radial-gradient(
+          238.39% 44.19% at 96.59% 31.25%,
+          #fff 0%,
+          rgba(255, 255, 255, 0) 100%
+        );
+      font-weight: 500;
+      font-size: 3.8vw;
+      line-height: 1.5;
+      letter-spacing: 0.08em;
+      color: #fff;
+    }
+
+    #content-ref-friend-link {
+      width: 7.4vh;
+      height: 7.4vh;
+      padding: 2.2vh;
+      border-radius: 2vh;
+      background: radial-gradient(
+          178.09% 220.16% at 94.89% -132.81%,
+          rgb(255, 122, 0) 67.58895516395569%,
+          rgb(255, 199, 0) 100%
+        ),
+        radial-gradient(
+          137.51% 118.3% at 32.95% 0%,
+          rgb(255, 137, 137) 21.246936917304993%,
+          rgb(255, 169, 106) 88.62413167953491%
+        ),
+        radial-gradient(
+          182.56% 55.34% at 5.68% 100%,
+          rgb(246, 251, 34) 0%,
+          rgb(255, 158, 69) 100%
+        ),
+        radial-gradient(
+          238.39% 44.19% at 96.59% 31.25%,
+          rgb(255, 255, 255) 0%,
+          rgb(255, 255, 255) 100%
+        );
+      box-shadow: 0 0.3vh 0 0 #705438;
+    }
   </style>
 </head>
 <div id="profile-content">
@@ -467,7 +769,7 @@
     <div class="profil-tab">Мои рефералы</div>
     <div class="profil-tab">Награды</div>
   </div>
-  <div id="profil-info-content">
+  <!-- <div id="profil-info-content">
     <div class="profil-info-item">
       <div class="profil-info-inner">
         <div class="profil-info-text">Правила игры</div>
@@ -506,5 +808,110 @@
         >
       </div>
     </div>
-  </div>  
+  </div> -->
+  <div id="profil-info-content-ref">
+    <span class="content-ref-title">Приглашайте друзей!</span>
+    <span class="content-ref-subtitle"
+      >Вы и ваши друзья будете получать бонусы</span
+    >
+    <div class="content-ref-invite">
+      <div class="content-ref-invite-img">
+        <img src="images/invite-icon2.png" alt="icon-men" />
+      </div>
+      <div class="content-ref-invite-wrapper">
+        <span class="content-ref-invaite-title">Пригласи друга</span>
+        <div class="content-ref-invate-inner">
+          <span class="content-ref-invate-sep"></span>
+          <div class="content-ref-invate-coin">
+            <img src="images/coin-40.svg" alt="coin" />
+          </div>
+          <span class="content-ref-invate-value">+5,000</span>
+          <span class="content-ref-invate-text"> для вас и вашего друга</span>
+        </div>
+      </div>
+    </div>
+    <div class="content-ref-invite">
+      <div class="content-ref-invite-img">
+        <img src="images/invite-icon2.png" alt="icon-men" />
+      </div>
+      <div class="content-ref-invite-wrapper">
+        <span class="content-ref-invaite-title"
+          >Пригласите друга с Telegram Premium</span
+        >
+        <div class="content-ref-invate-inner">
+          <span class="content-ref-invate-sep"></span>
+          <div class="content-ref-invate-coin">
+            <img src="images/coin-40.svg" alt="coin" />
+          </div>
+          <span class="content-ref-invate-value">+25,000</span>
+          <span class="content-ref-invate-text"> для вас и вашего друга</span>
+        </div>
+      </div>
+    </div>
+    <div class="content-ref-invite">
+      <div id="content-ref-invite-btn">Стать рефералом</div>
+    </div>
+    <div class="content-ref-friend-top">
+      <div class="content-ref-friend-title">
+        Список ваших друзей(
+        <span id="content-ref-friend-value">2</span>
+        )
+      </div>
+      <div id="content-ref-friend-icon">
+        <img src="images/sync-icon.png" alt="sync icon" />
+      </div>
+    </div>
+    <div id="content-ref-friend-lists">
+      <div class="content-ref-friend">
+        <div class="content-ref-friend-img-bg">
+          <div class="content-ref-friend-img">
+            <img src="images/shop-item-icon.svg" alt="" />
+          </div>
+        </div>
+        <div class="content-ref-friend-wrapper">
+          <span class="content-ref-friend-name">Вася</span>
+          <div class="content-ref-friend-inner">
+            <span class="content-ref-friend-sep"></span>
+            <div class="content-ref-friend-coin">
+              <img src="images/coin-40.svg" alt="coin" />
+            </div>
+            <span class="content-ref-friend-profit">453K</span>
+            <span class="content-ref-friend-total">(40.4M)</span>
+          </div>
+        </div>
+        <div class="content-ref-friend-coin">
+          <img src="images/coin-40.svg" alt="coin" />
+        </div>
+        <span class="content-ref-friend-bust">95K</span>
+      </div>
+      <div class="content-ref-friend">
+        <div class="content-ref-friend-img-bg">
+          <div class="content-ref-friend-img">
+            <img src="images/shop-item-icon.svg" alt="" />
+          </div>
+        </div>
+        <div class="content-ref-friend-wrapper">
+          <span class="content-ref-friend-name">Петя</span>
+          <div class="content-ref-friend-inner">
+            <span class="content-ref-friend-sep"></span>
+            <div class="content-ref-friend-coin">
+              <img src="images/coin-40.svg" alt="coin" />
+            </div>
+            <span class="content-ref-friend-profit">453K</span>
+            <span class="content-ref-friend-total">(40.4M)</span>
+          </div>
+        </div>
+        <div class="content-ref-friend-coin">
+          <img src="images/coin-40.svg" alt="coin" />
+        </div>
+        <span class="content-ref-friend-bust">95K</span>
+      </div>
+    </div>
+    <div class="content-ref-friend-bottom">
+      <div id="content-ref-friend-btn">Пригласи друга</div>
+      <div id="content-ref-friend-link">
+        <img src="images/copy-icon.png" alt=sheet">
+      </div>
+    </div>
+  </div>
 </div>
