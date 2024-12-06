@@ -15,42 +15,110 @@ import cors from 'cors';
 import mime from "mime";
 import { access } from 'fs/promises';
 import { Bot, webhookCallback } from "grammy";
+import * as zlib from 'zlib';
+import { promisify } from 'util';
 
 
 const app = express();
 const port = process.env.PORT || 8000;
 export const bot = new Bot(process.env.TELEGRAM_TOKEN || "");
 
+const brotliCompress = promisify(zlib.brotliCompress);
+const gzipCompress = promisify(zlib.gzip);
+
 interface ViewCache {
-    [fileName: string]: string;
+    html: string;
+    brotli: Buffer | null;
+    gzip: Buffer | null;
 }
 
 class ViewPreprocessor {
-    private viewCache: ViewCache = {};
+    private viewCache: Record<string, ViewCache> = {};
     private viewsDirectory: string;
 
     constructor(viewsDirectory: string) {
         this.viewsDirectory = viewsDirectory;
     }
 
-    preprocessViews() {
+    private async measureCompression(content: string): Promise<void> {
+        const originalSize = Buffer.byteLength(content);
+
+        const brotliCompressed = await brotliCompress(content, {
+            params: {
+                [zlib.constants.BROTLI_PARAM_QUALITY]: zlib.constants.BROTLI_MAX_QUALITY
+            }
+        });
+
+        const gzipCompressed = await gzipCompress(content, {
+            level: zlib.constants.Z_BEST_COMPRESSION
+        });
+
+        const brotliSize = Buffer.byteLength(brotliCompressed);
+        const gzipSize = Buffer.byteLength(gzipCompressed);
+
+        console.log(`Compression Metrics:
+    Original Size:  ${originalSize} bytes
+    Brotli Size:    ${brotliSize} bytes (${((1 - brotliSize / originalSize) * 100).toFixed(2)}% reduction)
+    Gzip Size:      ${gzipSize} bytes (${((1 - gzipSize / originalSize) * 100).toFixed(2)}% reduction)`);
+    }
+
+    private async compressContent(content: string) {
+        try {
+            // Compress with Brotli (highest compression)
+            const brotliCompressed = await brotliCompress(content, {
+                params: {
+                    [zlib.constants.BROTLI_PARAM_QUALITY]: zlib.constants.BROTLI_MAX_QUALITY,
+                    [zlib.constants.BROTLI_PARAM_MODE]: zlib.constants.BROTLI_MODE_TEXT
+                }
+            });
+
+            // Compress with Gzip (fallback)
+            // const gzipCompressed = await gzipCompress(content, {
+            //     level: zlib.constants.Z_BEST_COMPRESSION
+            // });
+
+            return {
+                brotli: brotliCompressed,
+                gzip: null
+            };
+        } catch (error) {
+            console.error('Compression error:', error);
+            return { brotli: null, gzip: null };
+        }
+    }
+
+    private optimizeSVG(svgContent: string): string {
+        return svgContent
+            // Remove XML declaration
+            .replace(/<\?xml[^>]+\?>/, '')
+            // Remove comments
+            .replace(/<!--[\s\S]*?-->/g, '')
+            // Remove unnecessary whitespace
+            .replace(/>\s+</g, '><')
+            // Remove unnecessary attributes
+            .replace(/\s+(xmlns(:[\w-]+)?=["'][^"']+["'])/g, '')
+            // Remove empty attributes
+            .replace(/\s+[\w-]+=['"](?:\s*)['"]/g, '')
+            // Trim leading and trailing whitespace
+            .trim();
+    }
+
+    async preprocessViews() {
         const start = performance.now();
         console.log('Starting view preprocessing...');
 
         try {
-            // Read all files in the views directory
             const files = fs.readdirSync(this.viewsDirectory);
 
-            files.forEach(fileName => {
+            for (const fileName of files) {
                 const filePath = path.join(this.viewsDirectory, fileName);
 
-                // Check if it's a file and has .html extension
                 if (fs.statSync(filePath).isFile() && path.extname(fileName) === '.html') {
                     try {
                         // Read the HTML content
                         let htmlContent = fs.readFileSync(filePath, 'utf8');
 
-                        // Match all <img> tags with .svg sources
+                        // Inline and optimize SVGs
                         const imgRegex = /<img\s+([^>]*?)src=["']([^"']+\.svg)["']([^>]*)>/g;
                         let match;
 
@@ -61,30 +129,37 @@ class ViewPreprocessor {
                             const attributesAfterSrc = match[3];
 
                             if (fs.existsSync(svgPath)) {
-                                // Read the SVG content
-                                const svgContent = fs.readFileSync(svgPath, 'utf8');
+                                // Read and optimize SVG content
+                                let svgContent = fs.readFileSync(svgPath, 'utf8');
+                                svgContent = this.optimizeSVG(svgContent);
 
-                                // Wrap the inline SVG inside a new parent <div>
+                                // Wrap the inline SVG
                                 const wrappedSvg = `
                                 <div ${attributesBeforeSrc} ${attributesAfterSrc} style="display: inline-block;">
                                     ${svgContent}
                                 </div>`;
 
-                                // Replace the <img> tag with the wrapped SVG
                                 htmlContent = htmlContent.replace(fullMatch, wrappedSvg);
-                            } else {
-                                console.warn(`SVG file not found: ${svgPath}`);
                             }
                         }
 
-                        // Store preprocessed content in cache
-                        this.viewCache[fileName] = htmlContent;
-                        console.log(`Preprocessed: ${fileName}`);
+                        // Compress the preprocessed content
+                        const compressed = await this.compressContent(htmlContent);
+                        // await this.measureCompression(htmlContent);
+
+                        // Store in cache
+                        this.viewCache[fileName] = {
+                            html: htmlContent,
+                            brotli: compressed.brotli,
+                            gzip: compressed.gzip
+                        };
+
+                        console.log(`Preprocessed and compressed: ${fileName}`);
                     } catch (fileError) {
                         console.error(`Error processing file ${fileName}:`, fileError);
                     }
                 }
-            });
+            }
 
             console.log(`View preprocessing completed in ${performance.now() - start}ms`);
             console.log(`Total views preprocessed: ${Object.keys(this.viewCache).length}`);
@@ -93,8 +168,16 @@ class ViewPreprocessor {
         }
     }
 
-    getView(fileName: string) {
-        return this.viewCache[fileName];
+    getView(fileName: string, encoding?: 'brotli' | 'gzip') {
+        const view = this.viewCache[fileName];
+        if (!view) return null;
+
+        // If specific encoding is requested and available, return compressed version
+        if (encoding === 'brotli' && view.brotli) return view.brotli;
+        if (encoding === 'gzip' && view.gzip) return view.gzip;
+
+        // Default to original HTML
+        return view.html;
     }
 }
 
@@ -166,17 +249,38 @@ AppDataSource.initialize().then(async () => {
             // Check if the file exists
             await access(filePath);
 
+            const acceptEncoding = req.headers['accept-encoding'] || '';
+            let encoding: 'brotli' | 'gzip' | undefined;
+
+            if (acceptEncoding.includes('br')) {
+                encoding = 'brotli';
+            } else if (acceptEncoding.includes('gzip')) {
+                encoding = 'gzip';
+            }
+            encoding = 'brotli';
             // Determine the MIME type
             const mimeType = mime.lookup(filePath) || 'application/octet-stream';
 
             if (mimeType === 'text/html') {
                 // Read the HTML content
-                const preprocessedContent = viewPreprocessor.getView(fileName);
+                const content = viewPreprocessor.getView(fileName, encoding);
 
-                if (preprocessedContent) {
-                    console.log(`Send of html: ${performance.now() - start}`);
-                    return res.type('text/html').send(preprocessedContent);
+                if (!content) {
+                    return res.status(404).send('View not found');
                 }
+
+                // Set appropriate headers
+                if (encoding === 'brotli') {
+                    res.setHeader('Content-Encoding', 'br');
+                } else if (encoding === 'gzip') {
+                    res.setHeader('Content-Encoding', 'gzip');
+                }
+
+                res.setHeader('Content-Type', 'text/html');
+                res.setHeader('Vary', 'Accept-Encoding');
+
+                console.log(`Send of html: ${performance.now() - start}`);
+                res.send(content);
             } else {
                 // For non-HTML files, send them as-is
                 console.log(`Send of not html: ${performance.now() - start}`);
