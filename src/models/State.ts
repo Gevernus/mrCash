@@ -26,7 +26,7 @@ export class State extends BaseEntity {
     @Column({ default: 0 })
     progress!: number
 
-    @Column({ default: 1 })
+    @Column("float", { default: 0 })
     tap_power!: number
 
     @Column({ nullable: true })

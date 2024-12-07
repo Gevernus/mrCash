@@ -130,7 +130,7 @@
 
     #profile-user-bg {
       width: 100vw;
-      height: 26.4vh;
+      height: 15.4vh;
     }
 
     #profile-user-bg img {
@@ -317,7 +317,7 @@
       margin-bottom: 2.4vh;
       display: flex;
       align-items: center;
-      justify-content: start;
+      justify-content: space-around;
       gap: 5vh;
       width: 91.2%;
       border-bottom: 0.2vh solid #31313193;
@@ -349,6 +349,8 @@
     }
 
     #profil-info-content {
+      display: flex;
+      flex-direction: column;
       width: 91.2%;
       padding-bottom: 10vh;
     }
@@ -671,7 +673,7 @@
       align-items: center;
       justify-content: center;
       border-radius: 2vh;
-      width: 70vw;
+      width: 100%;
       height: 7.4vh;
       box-shadow: 0 0.3vh 0 0 #705438;
       background: radial-gradient(
@@ -765,11 +767,11 @@
     </div>
   </div>
   <div class="profil-tabs">
-    <div class="profil-tab profil-tab-activ">Информация</div>
-    <div class="profil-tab">Мои рефералы</div>
-    <div class="profil-tab">Награды</div>
+    <div class="profil-tab profil-tab-activ" data-id="profil-info-content">Информация</div>
+    <div class="profil-tab" data-id="profil-info-content-ref">Мои рефералы</div>
+    <div class="profil-tab" data-id="profil-info-content-awards">Награды</div>
   </div>
-  <!-- <div id="profil-info-content">
+  <div id="profil-info-content">
     <div class="profil-info-item">
       <div class="profil-info-inner">
         <div class="profil-info-text">Правила игры</div>
@@ -808,8 +810,8 @@
         >
       </div>
     </div>
-  </div> -->
-  <div id="profil-info-content-ref">
+  </div>
+  <div id="profil-info-content-ref" style="display: none;">
     <span class="content-ref-title">Приглашайте друзей!</span>
     <span class="content-ref-subtitle"
       >Вы и ваши друзья будете получать бонусы</span
@@ -847,9 +849,6 @@
           <span class="content-ref-invate-text"> для вас и вашего друга</span>
         </div>
       </div>
-    </div>
-    <div class="content-ref-invite">
-      <div id="content-ref-invite-btn">Стать рефералом</div>
     </div>
     <div class="content-ref-friend-top">
       <div class="content-ref-friend-title">
@@ -909,9 +908,6 @@
     </div>
     <div class="content-ref-friend-bottom">
       <div id="content-ref-friend-btn">Пригласи друга</div>
-      <div id="content-ref-friend-link">
-        <img src="images/copy-icon.svg" alt=sheet">
-      </div>
     </div>
   </div>
 </div>
