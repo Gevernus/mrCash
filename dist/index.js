@@ -91,9 +91,9 @@ async function initApp() {
     systemManager.addSystem(new EnergySystem(gameEntity));
     systemManager.addSystem(new PopupSystem(gameEntity));
     systemManager.addSystem(new ActionsSystem(gameEntity));
-    gameEntity.getComponent(MeasureComponent).start();
-    await uiSystem.preloadAllViews();
+    gameEntity.getComponent(MeasureComponent).start();    
     systemManager.initAll();
+    await uiSystem.preloadAllViews();
 
     let currentLink = document.querySelector('.active');
     
