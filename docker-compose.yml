@@ -24,6 +24,7 @@ services:
       - DB_DATABASE=cash
       - DB_USERNAME=Admin
       - DB_PASSWORD=Grove312666$
+      - NODE_ENV=production
     networks:
       - cash-network
     depends_on:
