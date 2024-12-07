@@ -329,7 +329,12 @@ export class ViewComponent {
         try {
             console.log(`Start of view loading: ${entity.getComponent(MeasureComponent).elapsedTime()}`);
             // Load HTML template
-            const htmlResponse = await fetch(`/views/${this.name}.html`);
+            const [htmlResponse, logic] = await Promise.all([
+                fetch(`/views/${this.name}.html`),
+                import(`/views/${this.name}.js`)
+            ]);
+
+            // Check HTML response
             if (!htmlResponse.ok) {
                 throw new Error(`Failed to load HTML for ${this.name}. Status: ${htmlResponse.status}`);
             }
@@ -338,7 +343,7 @@ export class ViewComponent {
             console.log(`Text loaded: ${entity.getComponent(MeasureComponent).elapsedTime()}`);
             // Load JavaScript logic
             // const jsResponse = await fetch(`/views/${this.name}.js`);
-            this.logic = await import(`/views/${this.name}.js`);
+            this.logic = logic;
             console.log(`Logic imported: ${entity.getComponent(MeasureComponent).elapsedTime()}`);
             if (typeof this.logic.init !== 'function' || typeof this.logic.render !== 'function') {
                 throw new Error(`View ${this.name} must export init and render functions`, this.logic);

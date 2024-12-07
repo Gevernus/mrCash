@@ -19,7 +19,20 @@ async function initApp() {
     const telegramSystem = new TelegramSystem(gameEntity);
     const uiSystem = new UISystem(gameEntity);
     systemManager.addSystem(uiSystem);
-
+    uiSystem.registerViews([
+        'bring-out',
+        'default',
+        'edit-profile',
+        'home',
+        'loading',
+        'profile',
+        'replenish',
+        'settings',
+        'shop',
+        'slots',
+        'wallet',
+    ]);
+    
     // if (telegramSystem.getUserId() == 1) {
     //     console.log('Set default view');
     //     uiSystem.setView('default', 'main');
@@ -79,6 +92,7 @@ async function initApp() {
     systemManager.addSystem(new PopupSystem(gameEntity));
     systemManager.addSystem(new ActionsSystem(gameEntity));
     gameEntity.getComponent(MeasureComponent).start();
+    await uiSystem.preloadAllViews();
     systemManager.initAll();
 
     let currentLink = document.querySelector('.active');

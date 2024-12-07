@@ -494,6 +494,22 @@ export class UISystem extends System {
         super(entity);
         this.views = {};
         this.currentView = null;
+        this.viewNames = [];
+    }
+
+    registerViews(viewNames) {
+        this.viewNames = viewNames;
+    }
+
+    async preloadAllViews() {
+        const loadPromises = this.viewNames.map(viewName => this.loadView(viewName));
+
+        try {
+            await Promise.all(loadPromises);
+            console.log('All views preloaded successfully');
+        } catch (error) {
+            console.error('Error preloading views:', error);
+        }
     }
 
     async loadView(viewName) {
