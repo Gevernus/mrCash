@@ -1,4 +1,5 @@
 export function init(entity) {
+    const inputComponent = entity.getComponent('InputComponent');
     const tabs = document.querySelectorAll('.profil-tab');
     const contents = document.querySelectorAll('[id^="profil-info-content"]');
 
@@ -19,6 +20,13 @@ export function init(entity) {
             if (contentToShow) {
                 contentToShow.style.display = 'flex';
             }
+        });
+    });
+
+    document.querySelectorAll('.profil-info-item').forEach(link => {
+        link.addEventListener('click', (e) => {
+            e.preventDefault();
+            inputComponent.addInput("setView", { view: e.currentTarget.dataset.page });
         });
     });
 };
